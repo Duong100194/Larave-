@@ -6,7 +6,7 @@ use \Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
-class UserinsertController extends Controller
+class UserInsertController extends Controller
 {
     public function index()
     {
