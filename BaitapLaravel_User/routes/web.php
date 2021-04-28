@@ -18,5 +18,5 @@ use Illuminate\Support\Facades\Route;
 });
 */
 Route::get('', [\App\Http\Controllers\HomeController::class, 'index'])->name('show_list');
-Route::get('/CreateUser', [\App\Http\Controllers\CreateUserController::class, 'index'])->name('create_user');
+Route::get('/create-user', [\App\Http\Controllers\CreateUserController::class, 'index'])->name('create_user');
 
