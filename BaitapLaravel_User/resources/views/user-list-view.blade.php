@@ -30,36 +30,36 @@
 <div>
     <form method="GET" action="{{ route('create_user') }}" >
         <table border="1" style="">
-        <h1>User List</h1>
-        <input type = 'submit' value = "Add User"/>
-        <br>
-        <thead>
-        <tr>
-            <th>id</th>
-            <th>User</th>
-            <th>User Name</th>
-            <th>Email</th>
-            <th>Address</th>
-            <th>Actions</th>
+             <h1>User List</h1>
+             <input type = 'submit' value = "Add User"/>
+             <br>
+             <thead>
+                <tr>
+                     <th>id</th>
+                     <th>User</th>
+                     <th>User Name</th>
+                     <th>Email</th>
+                     <th>Address</th>
+                     <th>Actions</th>
 
-        </tr>
-       </thead>
-        <tbody>
-            @foreach($users as $item)
-        <tr>
-            <td>{{$item->id}}</td>
-            <td>{{$item->user}}</td>
-            <td>{{$item->username}}</td>
-            <td>{{$item->email}}</td>
-            <td>{{$item->address}}</td>
-            <td>
-                <a class="btn btn-danger" href="">Del</a>
-                <a href="" class="btn btn-primary">Edit</a>
-            </td>
-        </tr>
-            @endforeach
-        </tbody>
-    </table>
+                 </tr>
+              </thead>
+            <tbody>
+                 @foreach($users as $item)
+                    <tr>
+                        <td>{{$item->id}}</td>
+                        <td>{{$item->user}}</td>
+                        <td>{{$item->username}}</td>
+                        <td>{{$item->email}}</td>
+                        <td>{{$item->address}}</td>
+                        <td>
+                            <a class="btn btn-danger" href="">Del</a>
+                            <a href="" class="btn btn-primary">Edit</a>
+                        </td>
+                    </tr>
+                 @endforeach
+            </tbody>
+         </table>
     </form>
 
 </div>

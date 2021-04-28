@@ -12,7 +12,8 @@
     <table>
         <h1>Add User</h1>
         <td>User
-            <span class="error">必須</span></tr>
+            <span class="error">必須</span>
+            </tr>
         </td>
         </tr>
         <td><input type="text" name='user'/>
