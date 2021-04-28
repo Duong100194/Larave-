@@ -17,4 +17,6 @@ use Illuminate\Support\Facades\Route;
     return view('user-list-view');
 });
 */
-Route::get('/user-list-view', [UserinsertController::class, 'index'])->name('showlist');
+Route::get('', [\App\Http\Controllers\HomeController::class, 'index'])->name('show_list');
+Route::get('/CreateUser', [\App\Http\Controllers\CreateUserController::class, 'index'])->name('create_user');
+
