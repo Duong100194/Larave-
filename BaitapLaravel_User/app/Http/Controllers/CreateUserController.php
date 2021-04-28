@@ -9,7 +9,7 @@ class CreateUserController extends Controller
 {
     public function index()
     {
-        return view("CreateUser.user-insert-view");
+        return view("create-user.user-insert-view");
     }
 
 }
