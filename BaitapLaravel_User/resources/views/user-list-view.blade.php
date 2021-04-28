@@ -53,7 +53,8 @@
             <td>{{$item->email}}</td>
             <td>{{$item->address}}</td>
             <td>
-                <input type = 'submit' value = "Del"/> <input type = 'submit' value = "Edit"/>
+                <input type = 'submit' value = "Del"/>
+                <input type = 'submit' value = "Edit"/>
             </td>
         </tr>
             @endforeach
