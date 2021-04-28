@@ -45,7 +45,7 @@
         </tr>
        </thead>
         <tbody>
-            @foreach($data as $item)
+            @foreach($users as $item)
         <tr>
             <td>{{$item->id}}</td>
             <td>{{$item->user}}</td>
@@ -53,8 +53,8 @@
             <td>{{$item->email}}</td>
             <td>{{$item->address}}</td>
             <td>
-                <input type = 'submit' value = "Del"/>
-                <input type = 'submit' value = "Edit"/>
+                <a class="btn btn-danger" href="">Del</a>
+                <a href="" class="btn btn-primary">Edit</a>
             </td>
         </tr>
             @endforeach
