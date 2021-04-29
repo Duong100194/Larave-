@@ -13,8 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-/*Route::get('/', function () {
+Route::get('/', function () {
     return view('user-list-view');
 });
-*/
-Route::get('/user-list-view', [UserinsertController::class, 'index'])->name('showlist');
+
+//Route::get('/user-list-view', [UserinsertController::class, 'index'])->name('showlist');
