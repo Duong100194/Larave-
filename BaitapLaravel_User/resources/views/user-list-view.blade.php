@@ -53,7 +53,7 @@
                         <td>{{$item->email}}</td>
                         <td>{{$item->address}}</td>
                         <td>
-                            <a class="btn btn-danger" href="">Del</a>
+                            <a href="" class="btn btn-primary">Del</a>
                             <a href="" class="btn btn-primary">Edit</a>
                         </td>
                     </tr>
