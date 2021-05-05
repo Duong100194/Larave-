@@ -1,66 +1,52 @@
+
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html>
 <head>
-    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>User Manager</title>
-    {{--<style>
-        span
-        {
-            color: rosybrown;
-            display: inline-block;
-            width: 100px;
-            background-color: bisque;
-            margin-bottom: 3px;
-            margin-left: 3px;
-            padding: 10px;
-
-        }
-        li
-        {
-            list-style:square;
-        }
-
-
-    </style>
-    --}}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title> User manager</title>
 </head>
 <body>
 
-<div>
+
+<div class="container">
     <form method="GET" action="{{ route('create_user') }}" >
-        <table border="1" style="">
+        <table border="1" class="table table-striped">
              <h1>User List</h1>
-             <input type = 'submit' value = "Add User"/>
-             <br>
+            <div>
+                <input type = 'submit' class="btn btn-warning" value = "Add User"/>
+            </div>
              <thead>
                 <tr>
-                     <th>id</th>
-                     <th>User</th>
-                     <th>User Name</th>
-                     <th>Email</th>
-                     <th>Address</th>
-                     <th>Actions</th>
+                     <th class="text-center" >id</th>
+                     <th class="text-center">User</th>
+                     <th class="text-center">User Name</th>
+                     <th class="text-center">Email</th>
+                     <th class="text-center">Address</th>
+                     <th class="text-center">Actions</th>
 
                  </tr>
               </thead>
             <tbody>
+            {{$users->links()}}
                  @foreach($users as $item)
 
                     <tr>
-                        <td>{{$item->id}}</td>
-                        <td>{{$item->user}}</td>
-                        <td>{{$item->username}}</td>
-                        <td>{{$item->email}}</td>
-                        <td>{{$item->address}}</td>
-                        <td>
-                            <a class="btn btn-danger" href="">Del</a>
-                            <a href="" class="btn btn-primary">Edit</a>
-                        </td>
+                        <td class="text-center">{{$item->id}}</td>
+                        <td class="text-center">{{$item->user}}</td>
+                        <td class="text-center">{{$item->username}}</td>
+                        <td class="text-center">{{$item->email}}</td>
+                        <td class="text-center">{{$item->address}}</td>
+                        <td class="text-center" colspan="">
+                          <a href="{{ route('delete_user',$item->id,'method=GET') }}" class="btn btn-danger float-left" onclick="return confirm('Are you sure?')">Del</a>
+                          <a href="{{ route('edit_user',$item->id,'method=GET') }}" class="btn btn-success float-left">Edit</a>
                     </tr>
                  @endforeach
             </tbody>
          </table>
+
     </form>
 
 </div>
