@@ -15,7 +15,7 @@
 <body>
 <div class="container">
     <div class="row">
-            <form form method="GET" action="{{ route('store_user') }}" class="form-group">
+            <form form method="Post" action="{{ route('store_user') }}" class="form-group">
                 @csrf
                 <div class="form-group row">
                 <h1>Add User</h1>
@@ -58,7 +58,6 @@
                         <div class="c-section-box__title">
                             UserName  <span class="error">(必須)</span>
                         </div>
-
                     </div>
                     <div class="c-section-box__body">
                         <input type="text" class="form-control" name='username'>
@@ -74,7 +73,6 @@
                         <input type="text" class="form-control"  placeholder="@Email.com" name='email'>
                     </div>
                 </div>
-
                 <div class="form-group row">
                     <div class="c-section-box__head">
                         <div class="c-section-box__title">
@@ -87,7 +85,7 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <input type = 'submit'class="btn btn-info btn-lg" value = "insert"/>
+                    <input type='submit'class="btn btn-info btn-lg" value ="insert"/>
                     <a href="{{ route('show_list') }}" class="btn btn-default btn-lg">Cancel</a>
                 </div>
             </form>

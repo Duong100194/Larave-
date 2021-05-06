@@ -9,13 +9,14 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Collection;
 
-use App\Http\Requests\StroreUserRequest;
+use App\Http\Requests\CreateUserRequest;
 
-class UsersController extends Controller
+class UserController extends Controller
 {
     public function index()
     {
-        $users= DB::table('users')->orderBy('id', 'desc')->paginate(15);
+        //$users= DB::table('users')->orderBy('id', 'desc')->paginate(15);
+        $users = User::orderBy('id','desc')->paginate(15);
         return view('user-list-view', compact('users'));
     }
     public function create()
@@ -23,38 +24,37 @@ class UsersController extends Controller
        return view('user-insert-view');
 
     }
-    public function destroy(Request $request,$id)
+    public function destroy(Request $request, $id)
     {
         $user = User::find($id);
         $user->delete();
-        return redirect()->route('show_list')->with('message', '削除しました。');
+        return redirect()->route('show_list');
     }
-    public function store(StroreUserRequest $request)
+    public function store(CreateUserRequest $request)
     {
 //        dd($request);
-        $user=new User;
-        $user->user=$request->user;
-        $user->username=$request->username;
-        $user->email=$request->email;
-        $user->address=$request->address;
+        $user = new User;
+        $user->user = $request->user;
+        $user->username = $request->username;
+        $user->email = $request->email;
+        $user->address = $request->address;
         $user->save();
 
        return redirect()->route('show_list');
     }
     public function edit($id)
     {
-       $user = User::find($id);
         return view('user-edit-view', ['user' => User::findOrFail($id)]);
     }
-    public function update(StroreUserRequest $request,$id)
+    public function update(CreateUserRequest $request, $id)
     {
 //        dd($request);
         $user = User::find($id);
-        $user->id=$request->id;
-        $user->user=$request->user;
-        $user->username=$request->username;
-        $user->email=$request->email;
-        $user->address=$request->address;
+        $user->id = $request->id;
+        $user->user = $request->user;
+        $user->username = $request->username;
+        $user->email = $request->email;
+        $user->address = $request->address;
         $user->update();
         return redirect()->route('show_list');
     }

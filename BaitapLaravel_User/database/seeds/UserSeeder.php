@@ -23,10 +23,12 @@ class UserSeeder extends Seeder
         foreach (range(1, 500) as $index)
         {
             DB::table('users')->insert([
-                'user'=>$faker->firstName,
-                'username'=>$faker->name,
-                'email'=>$faker->email,
-                'address'=>$faker->address()
+                'user' => $faker->firstName,
+                'username' => $faker->name,
+                'email' => $faker->email,
+                'address' => $faker->address(),
+                'password' => $faker->password(),
+
 
               ]);
         }

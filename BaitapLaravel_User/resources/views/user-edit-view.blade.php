@@ -14,23 +14,23 @@
 <body>
 <div class="container">
     <div class="row">
-        <form action='{{ route('update_user',$user->id) }}' method='POST'>
+        <form action='{{route('update_user', $user->id)}}' method='POST'>
             {{ csrf_field() }}
             <div class="form-group row">
             <h1>Edit User</h1>
             @error('user')
             <div class="alert alert-danger" role="alert">
-                <strong>{{ $message }}</strong>
+                <strong>{{$message}}</strong>
             </div>
             @enderror
             @error('username')
             <div class="alert alert-danger" role="alert">
-                <strong>{{ $message }}</strong>
+                <strong>{{$message}}</strong>
             </div>
             @enderror
             @error('email')
             <div class="alert alert-danger" role="alert">
-                <strong>{{ $message }}</strong>
+                <strong>{{$message}}</strong>
             </div>
             @enderror
             </div>
@@ -41,7 +41,7 @@
                     </div>
                 </div>
                 <div class="c-section-box__body">
-                    <input type="text" class="form-control" name='user' value="{{ $user->user }}">
+                    <input type="text" class="form-control" name='user' value="{{$user->user}}">
                 </div>
             </div>
 
@@ -53,7 +53,7 @@
 
                 </div>
                 <div class="c-section-box__body">
-                    <input type="text" class="form-control" name='username'value="{{ $user->username }}">
+                    <input type="text" class="form-control" name='username'value="{{$user->username}}">
                 </div>
             </div>
             <div class="form-group row">
@@ -63,7 +63,7 @@
                     </div>
                 </div>
                 <div class="c-section-box__body">
-                    <input type="text" class="form-control"  placeholder="@Email.com" name='email'value="{{ $user->email }}">
+                    <input type="text" class="form-control"  placeholder="@Email.com" name='email'value="{{$user->email}}">
                 </div>
             </div>
             <div class="form-group row">
@@ -74,12 +74,12 @@
 
                 </div>
                 <div class="c-section-box__body">
-                    <input type="text"  class="form-control" name='address' value="{{ $user->address }}">
+                    <input type="text" class="form-control" name='address' value="{{$user->address}}">
                 </div>
             </div>
             <div class="form-group row">
-                <input type = 'submit' class="btn btn-info btn-lg"  value = "Save"/>
-                <a href="{{ route('show_list') }}" class="btn btn-default btn-lg">Cancel</a>
+                <input type='submit' class="btn btn-info btn-lg" value = "Save"/>
+                <a href="{{route('show_list')}}" class="btn btn-default btn-lg">Cancel</a>
             </div>
         </form>
     </div>

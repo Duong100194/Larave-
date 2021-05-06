@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <title> User manager</title>
 </head>
 <body>
@@ -25,13 +26,12 @@
                      <th class="text-center">Email</th>
                      <th class="text-center">Address</th>
                      <th class="text-center">Actions</th>
-
                  </tr>
               </thead>
             <tbody>
-            {{$users->links()}}
-                 @foreach($users as $item)
+                 {{$users->links()}}
 
+                 @foreach($users as $item)
                     <tr>
                         <td class="text-center">{{$item->id}}</td>
                         <td class="text-center">{{$item->user}}</td>
@@ -39,10 +39,27 @@
                         <td class="text-center">{{$item->email}}</td>
                         <td class="text-center">{{$item->address}}</td>
                         <td class="text-center" colspan="">
-                          <a href="{{ route('delete_user',$item->id,'method=GET') }}" class="btn btn-danger float-left" onclick="return confirm('Are you sure?')">Del</a>
-                          <a href="{{ route('edit_user',$item->id,'method=GET') }}" class="btn btn-success float-left">Edit</a>
+                          <a class="btn btn-danger float-left" onclick="confirmDelete({{$item->id}}">Del</a>
+                          <a href="{{ route('edit_user',$item->id) }}" class="btn btn-success float-left">Edit</a>
+                        </td>
                     </tr>
                  @endforeach
+                     <script>
+                         function confirmDelete(id)
+                         {
+                             if (confirm("Are you sure you want to delete this?"))
+                             {
+                                 axios.delete('http://localhost:8080/Laravel_Pr/BaitapLaravel_User/public/delete/' + id)
+                                     .then(response => console.log(response))
+                                     .catch(error => console.log(error))
+                             }
+                             else
+                                 return false;
+
+                         }
+
+                     </script>
+
             </tbody>
          </table>
 
