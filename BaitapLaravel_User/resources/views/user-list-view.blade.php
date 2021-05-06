@@ -39,7 +39,7 @@
                         <td class="text-center">{{$item->email}}</td>
                         <td class="text-center">{{$item->address}}</td>
                         <td class="text-center" colspan="">
-                          <a class="btn btn-danger float-left" onclick="confirmDelete({{$item->id}}">Del</a>
+                          <a class="btn btn-danger float-left" onclick="confirmDelete({{$item->id}})">Del</a>
                           <a href="{{ route('edit_user',$item->id) }}" class="btn btn-success float-left">Edit</a>
                         </td>
                     </tr>
@@ -49,9 +49,17 @@
                          {
                              if (confirm("Are you sure you want to delete this?"))
                              {
-                                 axios.delete('http://localhost:8080/Laravel_Pr/BaitapLaravel_User/public/delete/' + id)
-                                     .then(response => console.log(response))
-                                     .catch(error => console.log(error))
+                                 //axios.get('http://localhost/Laravel_Pr/BaitapLaravel_User/public/delete/' + id)
+
+                                 axios.post('http://localhost/Laravel_Pr/BaitapLaravel_User/public/delete', {
+                                     id: id
+                                 })
+                                     .then(function (response) {
+                                         window.location.reload();
+                                     })
+                                     .catch(function (error) {
+                                         console.log(error);
+                                     });
                              }
                              else
                                  return false;

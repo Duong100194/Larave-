@@ -17,7 +17,11 @@ Route::get('/create_user', [\App\Http\Controllers\UserController::class, 'create
 Route::post('/store', [\App\Http\Controllers\UserController::class, 'store'])->name('store_user');
 Route::get('/edit/{id}', [\App\Http\Controllers\UserController::class, 'edit'])->name('edit_user');
 Route::post('/edit/{id}', [\App\Http\Controllers\UserController::class, 'update'])->name('update_user');
-Route::get('/delete/{id}', [\App\Http\Controllers\UserController::class, 'destroy'])->name('delete_user');
+Route::post('/delete', [\App\Http\Controllers\UserController::class, 'destroy'])->name('delete_user');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
 
 Auth::routes();
 
