@@ -10,7 +10,6 @@
 </head>
 <body>
 
-
 <div class="container">
     <form method="GET" action="{{ route('create_user') }}" >
         <table border="1" class="table table-striped">
