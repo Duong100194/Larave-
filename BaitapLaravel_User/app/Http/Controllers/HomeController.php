@@ -23,6 +23,10 @@ class HomeController extends Controller
      */
     public function index()
     {
+<<<<<<< HEAD
         return view('user-list-view');
+=======
+        return view('home');
+>>>>>>> 95be89aaeef364817fd2bfcea6dbc0132e1bf579
     }
 }

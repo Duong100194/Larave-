@@ -24,9 +24,9 @@ class UserController extends Controller
        return view('user-insert-view');
 
     }
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request)
     {
-        $user = User::find($id);
+        $user = User::find($request->id);
         $user->delete();
         return redirect()->route('show_list');
     }
