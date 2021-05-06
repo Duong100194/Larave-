@@ -13,28 +13,24 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $users= DB::table('users')->get();
+        $users= DB::table('users')->paginate(15);
         return view('user-list-view', compact('users'));
-        //viết thế này là Laravel tự động hiểu mình sẽ dùng biến $users trong
-        // Controller và đặt tên cho biến trong Blade là users luôn.
-        //compact:tao ra mang
-        //with
     }
     public function create()
     {
-       return view('create-user.user-insert-view');
+       return view('user-insert-view');
 
     }
-    public function destroy($id)
+    public function destroy(Request $request,$id)
     {
-        DB::delete('delete from users where id=?',[$id]);
-        return redirect('show_list')->with('delete','User deleted successfully.');
+        $user = User::find($id);
+        $user->delete();
+        return redirect()->route('show_list')->with('message', '削除しました。');
     }
     public function store(StroreUserRequest $request)
     {
 //        dd($request);
         $user=new User;
-        $user->id=$request->id;
         $user->user=$request->user;
         $user->username=$request->username;
         $user->email=$request->email;
@@ -43,21 +39,21 @@ class HomeController extends Controller
 
        return redirect()->route('show_list');
     }
-    public function edit(Request $request)
+    public function edit($id)
     {
-        $users= DB::table('users')->find($request->id);
-        return view('user-edit-view', compact('user'));
-
+       $user = User::find($id);
+        return view('user-edit-view', ['user' => User::findOrFail($id)]);
     }
-    public function update(Request $request)
+    public function update(StroreUserRequest $request,$id)
     {
-        $user = User::find($request->id);;
+        //dd($request);
+        $user = User::find($id);
         $user->id=$request->id;
         $user->user=$request->user;
         $user->username=$request->username;
         $user->email=$request->email;
         $user->address=$request->address;
-        $user->save();
+        $user->update();
         return redirect()->route('show_list');
     }
 

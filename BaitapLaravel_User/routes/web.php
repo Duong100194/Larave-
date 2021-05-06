@@ -17,11 +17,14 @@ use Illuminate\Support\Facades\Route;
     return view('user-list-view');
 Route::resource('/','HomeController');
 });
+
+//Route::get('/user-list-view', [UserinsertController::class, 'index'])->name('showlist');
+=======
 */
 
 Route::get('home', [\App\Http\Controllers\HomeController::class, 'index'])->name('show_list');
 Route::get('/create_user', [\App\Http\Controllers\HomeController::class, 'create'])->name('create_user');
 Route::get('/store', [\App\Http\Controllers\HomeController::class, 'store'])->name('store_user');
-Route::get('/Edit', [\App\Http\Controllers\HomeController::class, 'edit'])->name('edit_user');
-Route::post('/Update', [\App\Http\Controllers\HomeController::class, 'update'])->name('update_user');
-
+Route::get('/edit/{id}', [\App\Http\Controllers\HomeController::class, 'edit'])->name('edit_user');
+Route::post('/edit/{id}', [\App\Http\Controllers\HomeController::class, 'update'])->name('update_user');
+Route::post('/delete/{id}', [\App\Http\Controllers\HomeController::class, 'destroy'])->name('delete_user');

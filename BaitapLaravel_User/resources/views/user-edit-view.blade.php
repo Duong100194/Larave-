@@ -1,70 +1,76 @@
-<form action='{{ route('update_user') }}' method='post'>
-    {{ csrf_field() }}
-{{--    <input type='hidden' name='id' value='{{ $article->id }}'><br>--}}
-{{--    ユーザーID：{{ $article->user_id }}<br>--}}
-{{--    タイトル：<input type='text' name='title' value='{{ $article->title }}'><br>--}}
-{{--    内容：<input type='text' name='content' value='{{ $article->content }}'><br>--}}
-{{--    <input type='submit' value='投稿'>--}}
-    <table>
-        <h1>Add User</h1>
-        <td>ID<span class="error">(必須)</span></td>
-        <tr>
-            <td><input type="hidden" name='id' value="{{ $user->id }}"/></td>
-            <div>
-                @error('id')
-                <span class="error"role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-            </div>
-        </tr>
-        <td>User<span class="error">(必須)</span></td>
-        <tr>
-            <td><input type="text" name='user'value="{{ $user->user }}"/></td>
-            <div>
-                @error('user')
-                <span class="error"role="alert">
-                        <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-            </div>
-        </tr>
-        <tr>
-            <td>UserName<span class="error">(必須)</span></td>
-        </tr>
-        <td><input type="text" name='username'value="{{ $user->username }}"/></td>
-        <div>
-            @error('username')
-            <span class="error"role="alert">
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <style>
+        .error {color: #FF0000;}
+    </style>
+    <title> Edit User </title>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <form action='{{ route('update_user',$user->id) }}' method='POST'>
+            {{ csrf_field() }}
+            <h1>Edit User</h1>
+            @error('user')
+            <div class="alert alert-danger" role="alert">
                 <strong>{{ $message }}</strong>
-            </span>
+            </div>
             @enderror
-        </div>
-        <tr>
-            <td>Email<span class="error">(必須)</span></tr></td>
-        </tr>
-        <td><input type="text" name='email'value="{{ $user->email }}"/></td>
-        <div>
+            @error('username')
+            <div class="alert alert-danger" role="alert">
+                <strong>{{ $message }}</strong>
+            </div>
+            @enderror
             @error('email')
-            <span class="error"role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
+            <div class="alert alert-danger" role="alert">
+                <strong>{{ $message }}</strong>
+            </div>
             @enderror
-        </div>
-        <tr>
-            <td>Address</td>
-        </tr>
-        <td><input type="text" name='address'value="{{ $user->address }}"/></td>
-        </tr>
 
-        <tr>
-            <td colspan = '1'>
-                <input type = 'submit' value = "Update"/>
-            </td>
-        </tr>
-    </table>
-</form>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">User
+                    <span class="error">(必須)</span>
+                </label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name='user'value="{{ $user->user }}">
+                </div>
+            </div>
 
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">UserName
+                    <span class="error">(必須)</span>
+                </label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name='username'value= "{{ $user->username }}" >
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="staticEmail" class="col-sm-2 col-form-label">Email
+                    <span class="error">(必須)</span>
+                </label>
+                <div class="col-sm-10">
+                    <input type="email" class="form-control"  placeholder="@Email.com" name='email'value="{{ $user->email }}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Address</label>
+                <div class="col-sm-10">
+                    <input type="text"  class="form-control" name='address'value="{{ $user->address }}" >
+                </div>
+            </div>
+            <div>
+                <input type = 'submit' class="btn btn-info btn-lg"  value = "Save"/>
+                <a href="{{ route('show_list','method=GET') }}" class="btn btn-default btn-lg">Cancel</a>
+            </div>
+        </form>
 </div>
-
+</div>
 </form>
+</body>
+</html>
