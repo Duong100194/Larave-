@@ -23,21 +23,11 @@ class StroreUserRequest extends FormRequest
      */
     public function rules()
     {
-<<<<<<< HEAD
-        return
-        [
-            'id'=>'required',
-            'user'=>'required',
-            'username'=>'required',
-            'email'=>'required'
-
-=======
         return [
             'user' => 'required|max:50',
             'username' => 'required|max:50',
             'email' => 'required|email:rfc,dns',
             'address' => 'max:50',
->>>>>>> 95cf131e3637e8226d357a748c20143d51ec004d
         ];
     }
 }
