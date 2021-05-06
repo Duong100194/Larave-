@@ -79,7 +79,7 @@
             </div>
             <div class="form-group row">
                 <input type = 'submit' class="btn btn-info btn-lg"  value = "Save"/>
-                <a href="{{ route('show_list','method=GET') }}" class="btn btn-default btn-lg">Cancel</a>
+                <a href="{{ route('show_list') }}" class="btn btn-default btn-lg">Cancel</a>
             </div>
         </form>
     </div>

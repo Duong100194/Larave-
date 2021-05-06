@@ -88,7 +88,7 @@
                 </div>
                 <div class="form-group row">
                     <input type = 'submit'class="btn btn-info btn-lg" value = "insert"/>
-                    <button class="btn btn-default btn-lg" formaction="{{ route('show_list') }}">Cancel</button>
+                    <a href="{{ route('show_list') }}" class="btn btn-default btn-lg">Cancel</a>
                 </div>
             </form>
     </div>
