@@ -27,7 +27,7 @@ class StroreUserRequest extends FormRequest
             'user' => 'required|max:50',
             'username' => 'required|max:50',
             'email' => 'required|email:rfc,dns',
-            'address' => 'max:50',
+            'address' => 'max:250',
         ];
     }
 }

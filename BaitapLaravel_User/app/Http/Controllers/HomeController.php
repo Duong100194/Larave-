@@ -46,7 +46,7 @@ class HomeController extends Controller
     }
     public function update(StroreUserRequest $request,$id)
     {
-        //dd($request);
+//        dd($request);
         $user = User::find($id);
         $user->id=$request->id;
         $user->user=$request->user;
