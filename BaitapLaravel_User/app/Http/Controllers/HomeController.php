@@ -7,13 +7,15 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Collection;
+
 use App\Http\Requests\StroreUserRequest;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        $users= DB::table('users')->paginate(15);
+        $users= DB::table('users')->orderBy('id', 'desc')->paginate(15);
         return view('user-list-view', compact('users'));
     }
     public function create()
