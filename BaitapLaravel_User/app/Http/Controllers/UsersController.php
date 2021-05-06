@@ -11,7 +11,7 @@ use Illuminate\Support\Collection;
 
 use App\Http\Requests\StroreUserRequest;
 
-class HomeController extends Controller
+class UsersController extends Controller
 {
     public function index()
     {

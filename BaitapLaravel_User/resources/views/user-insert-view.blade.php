@@ -17,6 +17,7 @@
     <div class="row">
             <form form method="GET" action="{{ route('store_user') }}" class="form-group">
                 @csrf
+                <div class="form-group row">
                 <h1>Add User</h1>
 
                     @error('user')
@@ -39,39 +40,53 @@
                         <strong>{{ $message }}</strong>
                     </div>
                     @enderror
-
+                </div>
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">User
-                        <span class="error">(必須)</span>
-                    </label>
-                    <div class="col-sm-10">
+                    <div class="c-section-box__head">
+                        <div class="c-section-box__title">
+                            User  <span class="error">(必須)</span>
+                        </div>
+
+                    </div>
+                    <div class="c-section-box__body">
                         <input type="text" class="form-control" name='user'>
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">UserName
-                        <span class="error">(必須)</span>
-                    </label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" name='username' >
+                    <div class="c-section-box__head">
+                        <div class="c-section-box__title">
+                            UserName  <span class="error">(必須)</span>
+                        </div>
+
+                    </div>
+                    <div class="c-section-box__body">
+                        <input type="text" class="form-control" name='username'>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Email
-                        <span class="error">(必須)</span>
-                    </label>
-                    <div class="col-sm-10">
+                    <div class="c-section-box__head">
+                        <div class="c-section-box__title">
+                            Email  <span class="error">(必須)</span>
+                        </div>
+                    </div>
+                    <div class="c-section-box__body">
                         <input type="text" class="form-control"  placeholder="@Email.com" name='email'>
                     </div>
                 </div>
+
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Address</label>
-                    <div class="col-sm-10">
+                    <div class="c-section-box__head">
+                        <div class="c-section-box__title">
+                            Address
+                        </div>
+
+                    </div>
+                    <div class="c-section-box__body">
                         <input type="text"  class="form-control" name='address' >
                     </div>
                 </div>
-                <div>
+                <div class="form-group row">
                     <input type = 'submit'class="btn btn-info btn-lg" value = "insert"/>
                     <button class="btn btn-default btn-lg" formaction="{{ route('show_list') }}">Cancel</button>
                 </div>

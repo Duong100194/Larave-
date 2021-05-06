@@ -16,6 +16,7 @@
     <div class="row">
         <form action='{{ route('update_user',$user->id) }}' method='POST'>
             {{ csrf_field() }}
+            <div class="form-group row">
             <h1>Edit User</h1>
             @error('user')
             <div class="alert alert-danger" role="alert">
@@ -32,44 +33,56 @@
                 <strong>{{ $message }}</strong>
             </div>
             @enderror
-
+            </div>
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label">User
-                    <span class="error">(必須)</span>
-                </label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" name='user'value="{{ $user->user }}">
+                <div class="c-section-box__head">
+                    <div class="c-section-box__title">
+                        User  <span class="error">(必須)</span>
+                    </div>
+                </div>
+                <div class="c-section-box__body">
+                    <input type="text" class="form-control" name='user' value="{{ $user->user }}">
                 </div>
             </div>
 
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label">UserName
-                    <span class="error">(必須)</span>
-                </label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" name='username'value= "{{ $user->username }}" >
+                <div class="c-section-box__head">
+                    <div class="c-section-box__title">
+                        UserName  <span class="error">(必須)</span>
+                    </div>
+
+                </div>
+                <div class="c-section-box__body">
+                    <input type="text" class="form-control" name='username'value="{{ $user->username }}">
                 </div>
             </div>
             <div class="form-group row">
-                <label for="staticEmail" class="col-sm-2 col-form-label">Email
-                    <span class="error">(必須)</span>
-                </label>
-                <div class="col-sm-10">
-                    <input type="email" class="form-control"  placeholder="@Email.com" name='email'value="{{ $user->email }}">
+                <div class="c-section-box__head">
+                    <div class="c-section-box__title">
+                        Email  <span class="error">(必須)</span>
+                    </div>
+                </div>
+                <div class="c-section-box__body">
+                    <input type="text" class="form-control"  placeholder="@Email.com" name='email'value="{{ $user->email }}">
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Address</label>
-                <div class="col-sm-10">
-                    <input type="text"  class="form-control" name='address'value="{{ $user->address }}" >
+                <div class="c-section-box__head">
+                    <div class="c-section-box__title">
+                        Address
+                    </div>
+
+                </div>
+                <div class="c-section-box__body">
+                    <input type="text"  class="form-control" name='address' value="{{ $user->address }}">
                 </div>
             </div>
-            <div>
+            <div class="form-group row">
                 <input type = 'submit' class="btn btn-info btn-lg"  value = "Save"/>
                 <a href="{{ route('show_list','method=GET') }}" class="btn btn-default btn-lg">Cancel</a>
             </div>
         </form>
-</div>
+    </div>
 </div>
 </form>
 </body>
