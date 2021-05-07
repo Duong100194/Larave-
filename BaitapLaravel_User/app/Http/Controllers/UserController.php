@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 use App\User;
+use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -24,23 +25,17 @@ class UserController extends Controller
        return view('user-insert-view');
 
     }
-    public function destroy(Request $request)
-    {
-        $user = User::find($request->id);
-        $user->delete();
-        return redirect()->route('show_list');
-    }
+
     public function store(CreateUserRequest $request)
     {
-//        dd($request);
+       // dd($request->all());
         $user = new User;
         $user->user = $request->user;
         $user->username = $request->username;
         $user->email = $request->email;
         $user->address = $request->address;
         $user->save();
-
-       return redirect()->route('show_list');
+        return response()->json(['success' => 'Deleted']);
     }
     public function edit($id)
     {
@@ -58,7 +53,13 @@ class UserController extends Controller
         $user->update();
         return redirect()->route('show_list');
     }
-
+    public function destroy(Request $request)
+    {
+        $user = User::find($request->id);
+        $user->delete();
+        #return redirect()->route('show_list');
+        return response()->json(['success' => 'Deleted']);
+    }
 }
 
 
