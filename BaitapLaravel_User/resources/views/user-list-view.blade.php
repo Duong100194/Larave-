@@ -51,7 +51,7 @@
                              {
                                  //axios.get('http://localhost/Laravel_Pr/BaitapLaravel_User/public/delete/' + id)
 
-                                 axios.post('http://localhost:8080/Laravel_Pr/BaitapLaravel_User/public/delete', {
+                                 axios.post('/Laravel_Pr/BaitapLaravel_User/public/delete', {
                                      id: id
                                  })
                                      .then(function (response) {
