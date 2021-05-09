@@ -50,7 +50,6 @@
                              if (confirm("Are you sure you want to delete this?"))
                              {
                                  //axios.get('http://localhost/Laravel_Pr/BaitapLaravel_User/public/delete/' + id)
-
                                  axios.post('/Laravel_Pr/BaitapLaravel_User/public/delete', {
                                      id: id
                                  })
@@ -58,7 +57,7 @@
                                          window.location.reload();
                                      })
                                      .catch(function (error) {
-                                         console.log(error);
+                                         console.log(error.response);
                                      });
                              }
                              else

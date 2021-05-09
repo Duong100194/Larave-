@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use http\Client\Request;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\ValidationException;
 
 class CreateUserRequest extends FormRequest
 {
@@ -21,13 +23,32 @@ class CreateUserRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(Request $request)
     {
-        return [
-            'user' => 'required|max:50',
-            'username' => 'required|max:50',
-            'email' => 'required|email:rfc,dns',
-            'address' => 'max:250',
-        ];
+//        return [
+//            'user' => 'required|max:50',
+//            'username' => 'required|max:50',
+//            'email' => 'required|email:rfc,dns',
+//            'address' => 'max:250',
+//        ];
+        try {
+            $this->validate($request, [
+                'user' => 'required|max:50',
+                'username' => 'required|max:50',
+                'email' => 'required|email:rfc,dns',
+                'address' => 'max:250',
+            ]);
+            return response()->json([
+                'status' => 'success',
+                'msg'    => 'Okay',
+            ], 201);
+        }
+        catch (ValidationException $exception) {
+            return response()->json([
+                'status' => 'error',
+                'msg'    => 'Error',
+                'errors' => $exception->errors(),
+            ], 422);
+        }
     }
 }
