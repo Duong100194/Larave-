@@ -8,6 +8,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <title> User manager</title>
+
 </head>
 <body>
 
@@ -18,7 +19,25 @@
             <div>
                 <input type = 'submit' class="btn btn-warning" value = "Add User"/>
             </div>
-             <thead>
+            <div class="row" >
+                <div class="col-sm-8"> <input id="header-search" type="text" name="search" class="form-control m-input" placeholder="Enter Country Name" onclick="search()" /></div>
+                <div class="col-sm-4"> <button type="button" class="btn btn-default" id="btnSearch" onclick="country_name()">Search</button></div>
+            </div>
+            {{ csrf_field() }}
+            <div>
+            <div id="search-suggest" class="s-suggest"></div>
+            </div>
+{{--            </div>--}}
+{{--            <div class="form-group">--}}
+{{--                <div class="header-search">--}}
+{{--                    <form method="POST" id="header-search">--}}
+{{--                        <input type="text" name="search" class="form-control m-input" placeholder="Enter Country Name" />--}}
+{{--                        {{ csrf_field() }}--}}
+{{--                    </form>--}}
+{{--                </div>--}}
+{{--                <div id="search-suggest" class="s-suggest"></div>--}}
+{{--            </div>--}}
+            <thead>
                 <tr>
                      <th class="text-center" >id</th>
                      <th class="text-center">User</th>
@@ -65,6 +84,74 @@
 
                          }
 
+                         function search()
+                         {
+                             if (confirm("Are you sure you want to delete this?"))
+                             {
+                                 $('#header-search').val();
+                                 //axios.get('http://localhost/Laravel_Pr/BaitapLaravel_User/public/delete/' + id)
+                                 axios.post('/Laravel_Pr/BaitapLaravel_User/public/search', {
+                                     id: 1
+                                 })
+                                     .then(function (response) {
+                                         console.log(response);
+                                     })
+                                     .catch(function (error) {
+                                         console.log(error.response);
+                                     });
+                             }
+                             else
+                                 return false;
+
+                         }
+                         $('#header-search').on('keyup', function() {
+                             var search = this.value;
+                            // console.log(1);
+                             if ($(this).find('.m-input').val() == '') {
+                                 $('#search-suggest div').hide();
+                             } else {
+                                 console.log(search)
+                                 // $.ajax({
+                                 //     url: '/Laravel_Pr/BaitapLaravel_User/public/search',
+                                 //     type: 'POST',
+                                 //     data: search,
+                                 // })
+                                 //     .done(function(res) {
+                                 //         console.log(res);
+                                 //         $('#search-suggest').html('');
+                                 //         $('#search-suggest').append(res)
+                                 //     })
+                                 {{--$.ajax({--}}
+                                 {{--    url: '/Laravel_Pr/BaitapLaravel_User/public/search',--}}
+                                 {{--    type: "POST",--}}
+
+                                 {{--    data: {--}}
+                                 {{--        "_token": "{{ csrf_token() }}",--}}
+                                 {{--        id: search,--}}
+
+                                 {{--    },--}}
+                                 {{--    success: function (response) {--}}
+                                 {{--        console.log(response);--}}
+                                 {{--    },--}}
+                                 {{--    error: function (error) {--}}
+                                 {{--        console.log(error);--}}
+                                 {{--    }--}}
+
+                                 {{--});--}}
+
+                                 axios.post('/Laravel_Pr/BaitapLaravel_User/public/search', {
+                                     keyword: search
+                                 })
+                                     .then(function (response) {
+                                         console.log(response);
+                                        // $('#search-suggest').html('');
+                                        // $('#search-suggest').append(response)
+                                     })
+                                     .catch(function (error) {
+                                         console.log(error);
+                                     });
+                             };
+                         });
                      </script>
 
             </tbody>

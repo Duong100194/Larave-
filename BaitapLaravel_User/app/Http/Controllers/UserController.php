@@ -94,7 +94,40 @@ class UserController extends Controller
 //        $user->update();
 //        return redirect()->route('show_list');
     }
+    public function search(Request $request)
+    {
+      // return $request->keyword;
+        if ($request->keyword != '') {
+           // $data = User::FullTextSearch('user', $request->keyword)->get();
+            //$data = User::search($request->keyword)->get();
+            $data = User::select("username","email","user","address")
+                ->where("username","LIKE","%{$request->keyword}%")
+                ->orWhere("address","LIKE","%{$request->keyword}%")
+                ->orWhere("user","LIKE","%{$request->keyword}%")
+                ->orWhere("email","LIKE","%{$request->keyword}%")
 
+
+                ->get();
+            return $data;
+//            foreach ($data as $key => $value) {
+//                echo $value->name;
+//                echo '<br>'; // mình viết vầy cho nhanh các bạn tùy chỉnh cho đẹp nhé
+//            }
+        }
+       // dd($request->id);
+//        return 2;
+//        $user = User::find($request->id);
+//        $user->delete();
+//        #return redirect()->route('show_list');
+//        return response()->json(['success' => 'Deleted']);
+//        if ($request->search != '') {
+//            $data = User::FullTextSearch('user', $request->search)->get();
+//            foreach ($data as $key => $value) {
+//                echo $value->user;
+//                echo '<br>'; // mình viết vầy cho nhanh các bạn tùy chỉnh cho đẹp nhé
+//            }
+//        }
+    }
     public function destroy(Request $request)
     {
         $user = User::find($request->id);
