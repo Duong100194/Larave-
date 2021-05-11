@@ -50,11 +50,9 @@ class UserController extends Controller
 
     public function update(UserRequest $request)
     {
-
-            $user = User::find($request->id);
-            DB::transaction(function () use ($user, $request)
+            DB::transaction(function () use ( $request)
             {
-
+            $user = User::find($request->id);
             $user->id = $request->id;
             $user->user = $request->user;
             $user->username = $request->username;
@@ -76,8 +74,8 @@ class UserController extends Controller
                 ->orWhere("user", "LIKE", "%{$request->keyword}%")
                 ->orWhere("email", "LIKE", "%{$request->keyword}%")
                 ->get();
-            return $data;
         }
+        return $data;
 
     }
     public function destroy(Request $request)

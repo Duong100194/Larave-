@@ -10,8 +10,9 @@
             </div>
              <thead>
             <div class="row" >
-                <div class="col-sm-8"> <input id="header-search" type="text" name="search" class="form-control m-input" placeholder="Enter Your Search" onclick="search()" /></div>
+                <div class="col-sm-8"> <input id="header-search" type="text" name="search" class="form-control m-input" placeholder="Enter Your Search"/></div>
                 <div class="col-sm-4"> <button type="button" class="btn btn-default" id="btnSearch">Search</button></div>
+                <p class="pull-left">Tim thay {{count($users)}} User</p>
             </div>
             {{ csrf_field() }}
             <div>
@@ -74,6 +75,7 @@
                                  })
                                      .then(function (response) {
                                          console.log(response);
+                                        // window.location.reload();
                                         // $('#search-suggest').html('');
                                         // $('#search-suggest').append(response)
                                      })
