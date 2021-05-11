@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Collection;
 use Illuminate\Validation\ValidationException;
 
-use App\Http\Requests\CreateUserRequest;
+use App\Http\Requests\UserRequest;
 
 class UserController extends Controller
 {
@@ -28,30 +28,19 @@ class UserController extends Controller
 
     }
 
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        try {
-            $this->validate($request, [
-                'user' => 'required|max:50',
-                'username' => 'required|max:50',
-                'email' => 'required|email:rfc,dns',
-                'address' => 'max:250',
-            ]);
-            $user = new User;
+        $user = new User;
+        DB::transaction(function () use ($user, $request)
+        {
             $user->user = $request->user;
             $user->username = $request->username;
             $user->email = $request->email;
             $user->address = $request->address;
             $user->save();
-            return response()->json(['success' => 'User Created']);
-        } catch (ValidationException $exception) {
-            return response()->json([
-                'status' => 'error',
-                'msg' => 'Error',
-                'errors' => $exception->errors(),
-            ], 422);
-        }
 
+        });
+        return response()->json(['success' => 'User Created']);
     }
 
     public function edit($id)
@@ -59,74 +48,37 @@ class UserController extends Controller
         return view('user-edit-view', ['user' => User::findOrFail($id)]);
     }
 
-    public function update(Request $request)
+    public function update(UserRequest $request)
     {
-        try {
-            $this->validate($request, [
-                'user' => 'required|max:50',
-                'username' => 'required|max:50',
-                'email' => 'required|email:rfc,dns',
-                'address' => 'max:250',
-            ]);
+
             $user = User::find($request->id);
+            DB::transaction(function () use ($user, $request)
+            {
+
             $user->id = $request->id;
             $user->user = $request->user;
             $user->username = $request->username;
             $user->email = $request->email;
             $user->address = $request->address;
             $user->update();
-            return response()->json(['success' => 'User Updated']);
-        }
-        catch (ValidationException $exception) {
-            return response()->json([
-                'status' => 'error',
-                'msg' => 'Error',
-                'errors' => $exception->errors(),
-            ], 422);
-        }
-//        dd($request);
-//        $user = User::find($id);
-//        $user->id = $request->id;
-//        $user->user = $request->user;
-//        $user->username = $request->username;
-//        $user->email = $request->email;
-//        $user->address = $request->address;
-//        $user->update();
-//        return redirect()->route('show_list');
+
+            });
+        return response()->json(['success' => 'User Updated']);
     }
     public function search(Request $request)
     {
-      // return $request->keyword;
         if ($request->keyword != '') {
-           // $data = User::FullTextSearch('user', $request->keyword)->get();
+            // $data = User::FullTextSearch('user', $request->keyword)->get();
             //$data = User::search($request->keyword)->get();
-            $data = User::select("username","email","user","address")
-                ->where("username","LIKE","%{$request->keyword}%")
-                ->orWhere("address","LIKE","%{$request->keyword}%")
-                ->orWhere("user","LIKE","%{$request->keyword}%")
-                ->orWhere("email","LIKE","%{$request->keyword}%")
-
-
+            $data = User::select("username", "email", "user", "address")
+                ->where("username", "LIKE", "%{$request->keyword}%")
+                ->orWhere("address", "LIKE", "%{$request->keyword}%")
+                ->orWhere("user", "LIKE", "%{$request->keyword}%")
+                ->orWhere("email", "LIKE", "%{$request->keyword}%")
                 ->get();
             return $data;
-//            foreach ($data as $key => $value) {
-//                echo $value->name;
-//                echo '<br>'; // mình viết vầy cho nhanh các bạn tùy chỉnh cho đẹp nhé
-//            }
         }
-       // dd($request->id);
-//        return 2;
-//        $user = User::find($request->id);
-//        $user->delete();
-//        #return redirect()->route('show_list');
-//        return response()->json(['success' => 'Deleted']);
-//        if ($request->search != '') {
-//            $data = User::FullTextSearch('user', $request->search)->get();
-//            foreach ($data as $key => $value) {
-//                echo $value->user;
-//                echo '<br>'; // mình viết vầy cho nhanh các bạn tùy chỉnh cho đẹp nhé
-//            }
-//        }
+
     }
     public function destroy(Request $request)
     {
@@ -135,19 +87,7 @@ class UserController extends Controller
         #return redirect()->route('show_list');
         return response()->json(['success' => 'Deleted']);
     }
-    public function searchByName(Request $request)
-    {
-        $user = User::where('user', 'like', '%' . $request->value . '%')->get();
 
-        return response()->json($user);
-    }
-
-    public function searchByEmail(Request $request)
-    {
-        $user = User::where('email', 'like', '%' . $request->value . '%')->get();
-
-        return response()->json($user);
-    }
 }
 
 
