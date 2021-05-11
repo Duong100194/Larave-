@@ -6,8 +6,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
     <style>
         .error {color: #FF0000;}
@@ -38,7 +36,7 @@
 {{--            @enderror--}}
             </div>
             <div class="form-group row">
-                <p class="error" id ="errormessage" > </p>
+                <p class="error" id="errorMessage" > </p>
                 <div class="c-section-box__head">
                     <div class="c-section-box__title">
                         User  <span class="error">(必須)</span>
@@ -96,25 +94,25 @@
                     let email = document.getElementById('email').value;
                     let address = document.getElementById('address').value;
                     var submitData = {
-                        id:id,
+                        id: id,
                         user: user,
-                        username:username,
+                        username: username,
                         email: email,
                         address: address,
                     }
-                    var errormessage = document.getElementById("errormessage");
-                    axios.post('/Laravel_Pr/BaitapLaravel_User/public/edit',submitData)
+                    var errorMessage = document.getElementById("errorMessage");
+                    axios.post('/Laravel_Pr/BaitapLaravel_User/public/edit', submitData)
                         .then(function (response) {
                             alert(response.data.success);
-                            window.location.href = "{{route('show_list')}}";
+                            window.location.href ="{{route('show_list')}}";
                             //  console.log(response);
                         })
                         .catch(function (error) {
                             //console.log(error.response)
-                            user  = error.response.data.errors.user!=null?error.response.data.errors.user+ '\n':'';
-                            username  = error.response.data.errors.username!=null?error.response.data.errors.username+ '\n':'';
-                            email  = error.response.data.errors.email!=null?error.response.data.errors.email+ '\n':'';;
-                            errormessage.innerText =user　+　username +　email;
+                            user  = error.response.data.errors.user != null ? error.response.data.errors.user+ '\n' : '';
+                            username  = error.response.data.errors.username != null ? error.response.data.errors.username+ '\n' : '';
+                            email  = error.response.data.errors.email != null ? error.response.data.errors.email+ '\n' : '';;
+                            errorMessage.innerText =user　+　username +　email;
                         });
 
             }

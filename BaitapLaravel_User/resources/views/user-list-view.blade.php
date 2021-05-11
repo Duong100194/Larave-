@@ -9,15 +9,20 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <title> User manager</title>
 </head>
+<style>
+</style>
 <body>
 
 <div class="container">
     <form method="GET" action="{{ route('create_user') }}" >
-        <table border="1" class="table table-striped">
+        <table border="1" class="table table-striped" id="User_list">
              <h1>User List</h1>
             <div>
                 <input type = 'submit' class="btn btn-warning" value = "Add User"/>
             </div>
+            <input class="form-control" id="system-search" name="q"
+                   placeholder="Search for user" > <span
+                class="input-group-btn">
              <thead>
                 <tr>
                      <th class="text-center" >id</th>
@@ -29,20 +34,19 @@
                  </tr>
               </thead>
             <tbody>
-                 {{$users->links()}}
-
                  @foreach($users as $item)
                     <tr>
-                        <td class="text-center">{{$item->id}}</td>
-                        <td class="text-center">{{$item->user}}</td>
-                        <td class="text-center">{{$item->username}}</td>
-                        <td class="text-center">{{$item->email}}</td>
-                        <td class="text-center">{{$item->address}}</td>
+                        <td class="text-center" id="id">{{$item->id}}</td>
+                        <td class="text-center" id="user">{{$item->user}}</td>
+                        <td class="text-center" id="username">{{$item->username}}</td>
+                        <td class="text-center" id="email">{{$item->email}}</td>
+                        <td class="text-center" id="address">{{$item->address}}</td>
                         <td class="text-center" colspan="">
                           <a class="btn btn-danger float-left" onclick="confirmDelete({{$item->id}})">Del</a>
                           <a href="{{ route('edit_user',$item->id) }}" class="btn btn-success float-left">Edit</a>
                         </td>
                     </tr>
+
                  @endforeach
                      <script>
                          function confirmDelete(id)
@@ -64,14 +68,29 @@
                                  return false;
 
                          }
+                         $('#system-search')
+                             .keyup(function() {
+                                 var that = this;
+
+                                 // affect all table rows on in systems table
+                                 var tableBody = $('.table-list-search tbody');
+                                 var tableRowsClass = $('.table-list-search tbody tr');
+                                 var inputText = $(that).val();
+                                 $('.search-sf').remove();
+
+                                 if (inputText != ''){
+                                     $('.search-query-sf').remove();
+                                     searchTable(tableRowsClass, inputText.toLowerCase())
+                                     tableBody.prepend('<tr class="search-query-sf"><td colspan="6"><strong>Searching for: "' + inputText + '"</strong></td></tr>');
+                                 }
+                             });
 
                      </script>
 
             </tbody>
+            {{$users->links()}}
          </table>
-
     </form>
-
 </div>
 
 </body>

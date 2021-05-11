@@ -43,7 +43,7 @@ class UserController extends Controller
             $user->email = $request->email;
             $user->address = $request->address;
             $user->save();
-            return response()->json(['success' => 'User Created'], 201);
+            return response()->json(['success' => 'User Created']);
         } catch (ValidationException $exception) {
             return response()->json([
                 'status' => 'error',
@@ -75,7 +75,7 @@ class UserController extends Controller
             $user->email = $request->email;
             $user->address = $request->address;
             $user->update();
-            return response()->json(['success' => 'User Updated'], 201);
+            return response()->json(['success' => 'User Updated']);
         }
         catch (ValidationException $exception) {
             return response()->json([
@@ -101,6 +101,19 @@ class UserController extends Controller
         $user->delete();
         #return redirect()->route('show_list');
         return response()->json(['success' => 'Deleted']);
+    }
+    public function searchByName(Request $request)
+    {
+        $user = User::where('user', 'like', '%' . $request->value . '%')->get();
+
+        return response()->json($user);
+    }
+
+    public function searchByEmail(Request $request)
+    {
+        $user = User::where('email', 'like', '%' . $request->value . '%')->get();
+
+        return response()->json($user);
     }
 }
 

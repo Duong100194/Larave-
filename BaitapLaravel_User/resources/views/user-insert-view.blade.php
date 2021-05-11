@@ -6,8 +6,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
     <style>
         .error {color: #FF0000;}
@@ -47,7 +45,9 @@
 {{--                    <strong>{{}}</strong>--}}
 {{--                </div>--}}
                 <div class="form-group row">
-                    <p class="error" id ="errormessage" > </p>
+                    <p class="error" id ="errorMessage" > </p>
+{{--                    <p class="error" id ="username" > </p>--}}
+{{--                    <p class="error" id ="email" > </p>--}}
                     <div class="c-section-box__head">
                         <div class="c-section-box__title">
                             User  <span class="error ">(必須)</span>
@@ -109,7 +109,7 @@
                         email: email,
                         address: address,
                     }
-                    var errormessage = document.getElementById("errormessage");
+                    var errorMessage = document.getElementById("errorMessage");
                     axios.post('/Laravel_Pr/BaitapLaravel_User/public/store', submitData)
                         .then(function (response) {
                           alert(response.data.success);
@@ -117,12 +117,30 @@
                         //  console.log(response);
                         })
                         .catch(function (error) {
-                            //console.log(error.response
-                            user  = error.response.data.errors.user!=null?error.response.data.errors.user+ '\n':'';
-                            username  = error.response.data.errors.username!=null?error.response.data.errors.username+ '\n':'';
-                            email  = error.response.data.errors.email!=null?error.response.data.errors.email+ '\n':'';;
-                            errormessage.innerText =user　+　username +　email;
+                            //console.log(error.response)
+                            // user  = error.response.data.errors.user != null ? error.response.data.errors.user+ '\n' : '';
+                            // username  = error.response.data.errors.username != null ? error.response.data.errors.username+ '\n' : '';
+                            // email  = error.response.data.errors.email != null ? error.response.data.errors.email+ '\n' : '';;
+                            // errorMessage.innerText =user　+　username +　email;
+                            // for ( let key in error.response.data.errors) {
+                            //     //Sau khi e co bien key, e se search xem key do co ben trong errors hay ko.
+                            //     if(error.response.data.errors.hasOwnProperty(key)) {
+                            //         //Neu key do co ben trong errors. e se dua no vao doan text;
+                            //         //Tên ban đầu của em là errormessage, không đặt như vậy. Đặt là errorMessages em nhé.
+                            //         errorMessage.innertText += error.response.data.errors[key][0];// cach nay la dua ra toan bo text trong cung 1 cho
+                            //
+                            //         //Hoac, em co the dat cho no tung dong span text error roi id cho no ben duoi cac input field
+                            //         //Sau khi check ra loi, e add key do vao jquery selector. Roi dua no ra.
+                            //         //Bi quyet la em hay dat ten ID cua tag error do trung voi key cua error
+                            //     }
+
+                           // }
+                            let er = error.response.data.errors;
+                            let ov = Object.values(er);
+                            errorMessage.innerText=ov.join('\n');
+
                         });
+
                 }
             }
         </script>
