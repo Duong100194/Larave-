@@ -26,7 +26,7 @@
                             </div>
                         </div>
                         <div class="c-section-box__body">
-                            <input type="text" class="form-control" name="username" id="username">
+                            <input type="text" class="form-control" name="username" id="username" onfocus="userInsert.clearError(this)">
                         </div>
                         <p class="error" style="display:none" id="error_username"> </p>
                     </div>
@@ -37,7 +37,7 @@
                             </div>
                         </div>
                         <div class="c-section-box__body">
-                            <input type="text" class="form-control"  placeholder="@Email.com" name="email" id="email">
+                            <input type="text" class="form-control"  placeholder="@Email.com" name="email" id="email" onfocus="userInsert.clearError(this)">
                         </div>
                         <p class="error" style="display:none" id="error_email"> </p>
                     </div>
@@ -49,7 +49,7 @@
 
                         </div>
                         <div class="c-section-box__body">
-                            <input type="text"  class="form-control" name="address" id="address">
+                            <input type="text"  class="form-control" name="address" id="address" onfocus="userInsert.clearError(this)">
                         </div>
                         <p class="error" style="display:none" id="error_address"> </p>
                     </div>
@@ -82,20 +82,23 @@
                         //  console.log(response);
                         })
                         .catch(function (error) {
+                            console.log(error.response.data.errors);
                             for ( let key in error.response.data.errors) {
                                 //Sau khi e co bien key, e se search xem key do co ben trong errors hay ko.
+                                console.log(error.response.data.errors.hasOwnProperty(key));
                                 if (error.response.data.errors.hasOwnProperty(key)) {
                                     //Neu key do co ben trong errors. e se dua no vao doan text;
                                     //errorMessage.innertText += error.response.data.errors[key][0];// cach nay la dua ra toan bo text trong cung 1 cho
                                     $('#error_'+key).html(error.response.data.errors[key][0]);
-                                    $('#error_'+key).css('display', 'block')
+                                    $('#error_'+key).css('display', 'block');
                                 }
                             }
                          });
                 },
                 clearError: function(self) {
-                  console.log($(self).attr('name'));//attribute
-
+                    console.log($(self).attr('name'));//attribute
+                    let txt_Click = $(self).attr('name');
+                    $('#error_'+txt_Click).css('display', 'none');
                 }
             }
         </script>

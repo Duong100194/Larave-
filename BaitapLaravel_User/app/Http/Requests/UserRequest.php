@@ -36,7 +36,7 @@ class UserRequest extends FormRequest
         return [
             'user.required'       => 'Userを入力してください。',
             'user.max'            => 'Userを入力してくださいは50文字以下でお願いします。',
-            'username.required'   => 'Usernameを入力してくださいを入力してください。',
+            'username.required'   => 'Usernameを入力してください。',
             'username.max'        => 'Usernameは50文字以下でお願いします。',
             'email.required'      => 'Emailを入力してください。',
             'email.email'         => '正しいEmailアドレスを入力してください。',
