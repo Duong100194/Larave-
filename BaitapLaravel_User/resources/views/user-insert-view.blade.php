@@ -18,7 +18,6 @@
                         </div>
                         <p class="error" style="display:none" id="error_user"> </p>
                     </div>
-
                     <div class="form-group row">
                         <div class="c-section-box__head">
                             <div class="c-section-box__title">
