@@ -2,11 +2,10 @@
 
 @section('content')
 <div class="container">
-    <form method="GET" action="{{ route('create_user') }}" >
         <table border="1" class="table table-striped" id="User_list">
              <h1>User List</h1>
             <div>
-                <input type = 'submit' class="btn btn-warning" value = "Add User"/>
+                <a href="{{ route('create_user') }}" class="btn btn-warning">Add User</a>
             </div>
              <thead>
             <div class="row" >
@@ -44,6 +43,7 @@
 
                  @endforeach
                      <script>
+                         "use strict";
                          function confirmDelete(id)
                          {
                              if (confirm("Are you sure you want to delete this?"))
@@ -89,6 +89,5 @@
             </tbody>
             {{$users->links()}}
          </table>
-    </form>
 </div>
 @endsection

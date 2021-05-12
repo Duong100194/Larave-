@@ -30,9 +30,10 @@ class UserController extends Controller
 
     public function store(UserRequest $request)
     {
-        $user = new User;
-        DB::transaction(function () use ($user, $request)
+
+        DB::transaction(function () use ($request)
         {
+            $user = new User;
             $user->user = $request->user;
             $user->username = $request->username;
             $user->email = $request->email;
@@ -50,15 +51,15 @@ class UserController extends Controller
 
     public function update(UserRequest $request)
     {
-            DB::transaction(function () use ( $request)
+            DB::transaction(function () use ($request)
             {
-            $user = User::find($request->id);
-            $user->id = $request->id;
-            $user->user = $request->user;
-            $user->username = $request->username;
-            $user->email = $request->email;
-            $user->address = $request->address;
-            $user->update();
+                    $user = User::find($request->id);
+                    $user->id = $request->id;
+                    $user->user = $request->user;
+                    $user->username = $request->username;
+                    $user->email = $request->email;
+                    $user->address = $request->address;
+                    $user->update();
 
             });
         return response()->json(['success' => 'User Updated']);
@@ -80,9 +81,13 @@ class UserController extends Controller
     }
     public function destroy(Request $request)
     {
-        $user = User::find($request->id);
-        $user->delete();
-        #return redirect()->route('show_list');
+        DB::transaction(function () use ($request)
+        {
+            $user = User::find($request->id);
+            $user->delete();
+            #return redirect()->route('show_list');
+
+        });
         return response()->json(['success' => 'Deleted']);
     }
 

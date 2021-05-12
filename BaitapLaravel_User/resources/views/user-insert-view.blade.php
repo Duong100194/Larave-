@@ -7,54 +7,58 @@
                 @csrf
                 <h1>Add User</h1>
                 <div class="card-body">
+                    <div class="form-group row">
+                        <div class="c-section-box__head">
+                            <div class="c-section-box__title">
+                                User  <span class="error ">(必須)</span>
+                            </div>
+                        </div>
+                        <div class="c-section-box__body">
+                            <input type="text" class="form-control" name="user" id="user" onfocus="userInsert.clearError(this)">
+                        </div>
+                        <p class="error" style="display:none" id="error_user"> </p>
+                    </div>
 
-                <div class="form-group row">
-                    <p class="error" id ="errorMessage" > </p>
-                    <div class="c-section-box__head">
-                        <div class="c-section-box__title">
-                            User  <span class="error ">(必須)</span>
+                    <div class="form-group row">
+                        <div class="c-section-box__head">
+                            <div class="c-section-box__title">
+                                UserName  <span class="error">(必須)</span>
+                            </div>
                         </div>
+                        <div class="c-section-box__body">
+                            <input type="text" class="form-control" name="username" id="username">
+                        </div>
+                        <p class="error" style="display:none" id="error_username"> </p>
                     </div>
-                    <div class="c-section-box__body">
-                        <input type="text" class="form-control" name="user" id="user">
+                    <div class="form-group row">
+                        <div class="c-section-box__head">
+                            <div class="c-section-box__title">
+                                Email  <span class="error">(必須)</span>
+                            </div>
+                        </div>
+                        <div class="c-section-box__body">
+                            <input type="text" class="form-control"  placeholder="@Email.com" name="email" id="email">
+                        </div>
+                        <p class="error" style="display:none" id="error_email"> </p>
+                    </div>
+                    <div class="form-group row">
+                        <div class="c-section-box__head">
+                            <div class="c-section-box__title">
+                                Address
+                            </div>
+
+                        </div>
+                        <div class="c-section-box__body">
+                            <input type="text"  class="form-control" name="address" id="address">
+                        </div>
+                        <p class="error" style="display:none" id="error_address"> </p>
+                    </div>
+                    <div class="form-group row">
+                        <button type="button" class="btn btn-info btn-lg" onclick="userInsert.insertUser()">Insert</button>
+                        <a href="{{ route('show_list') }}" class="btn btn-default btn-lg">Cancel</a>
                     </div>
                 </div>
 
-                <div class="form-group row">
-                    <div class="c-section-box__head">
-                        <div class="c-section-box__title">
-                            UserName  <span class="error">(必須)</span>
-                        </div>
-                    </div>
-                    <div class="c-section-box__body">
-                        <input type="text" class="form-control" name="username" id="username">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="c-section-box__head">
-                        <div class="c-section-box__title">
-                            Email  <span class="error">(必須)</span>
-                        </div>
-                    </div>
-                    <div class="c-section-box__body">
-                        <input type="text" class="form-control"  placeholder="@Email.com" name="email" id="email">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="c-section-box__head">
-                        <div class="c-section-box__title">
-                            Address
-                        </div>
-
-                    </div>
-                    <div class="c-section-box__body">
-                        <input type="text"  class="form-control" name="address" id="address">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <button type="button" class="btn btn-info btn-lg" onclick="userInsert.insertUser()">Insert</button>
-                    <a href="{{ route('show_list') }}" class="btn btn-default btn-lg">Cancel</a>
-                </div>
             </form>
         <script type="text/javascript">
             "use strict";
@@ -78,11 +82,19 @@
                         //  console.log(response);
                         })
                         .catch(function (error) {
-                            let er = error.response.data.errors;
-                            let ov = Object.values(er);
-                            errorMessage.innerText=ov.join('\n');
-
-                        });
+                            for ( let key in error.response.data.errors) {
+                                //Sau khi e co bien key, e se search xem key do co ben trong errors hay ko.
+                                if (error.response.data.errors.hasOwnProperty(key)) {
+                                    //Neu key do co ben trong errors. e se dua no vao doan text;
+                                    //errorMessage.innertText += error.response.data.errors[key][0];// cach nay la dua ra toan bo text trong cung 1 cho
+                                    $('#error_'+key).html(error.response.data.errors[key][0]);
+                                    $('#error_'+key).css('display', 'block')
+                                }
+                            }
+                         });
+                },
+                clearError: function(self) {
+                  console.log($(self).attr('name'));//attribute
 
                 }
             }
