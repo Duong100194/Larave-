@@ -17,8 +17,38 @@ class UserController extends Controller
 {
     public function index()
     {
+//        $request = request()->all();
+//        dd($request);
         //$users= DB::table('users')->orderBy('id', 'desc')->paginate(15);
-        $users = User::orderBy('id', 'desc')->paginate(15);
+
+       // $users = User::orderBy('id', 'desc')->paginate(15);
+
+//        $search_user=$_GET['searchUser'];
+        $search_user = request('searchUser');
+        $search_username=request('searchUsername');
+        $search_email=request('searchEmail');
+        $search_address=request('searchAddress');
+
+
+        $query = User::latest();
+        if(! empty($search_user)) {
+            $query->Where("user", "LIKE", "%{$search_user}%");
+        }
+        if(! empty($search_username)) {
+            $query->Where("username", "LIKE", "%{$search_username}%");
+        }
+        if(! empty($search_email)) {
+            $query->Where("email", "LIKE", "%{$search_email}%");
+        }
+        if(! empty($search_address)) {
+            $query->Where("address", "LIKE", "%{$search_address}%");
+        }
+        $users = $query->orderBy('id', 'desc')->paginate(15);
+
+//            ->where("username", "LIKE", "%{$search_username}%")
+//            ->Where("email", "LIKE", "%{$search_email}%")
+//            ->Where("address", "LIKE", "%{$search_address}%")
+//            ->get();
         return view('user-list-view', compact('users'));
     }
 
@@ -64,21 +94,20 @@ class UserController extends Controller
             });
         return response()->json(['success' => 'User Updated']);
     }
-    public function search(Request $request)
-    {
-        if ($request->keyword != '') {
-            // $data = User::FullTextSearch('user', $request->keyword)->get();
-            //$data = User::search($request->keyword)->get();
-            $data = User::select("username", "email", "user", "address")
-                ->where("username", "LIKE", "%{$request->keyword}%")
-                ->orWhere("address", "LIKE", "%{$request->keyword}%")
-                ->orWhere("user", "LIKE", "%{$request->keyword}%")
-                ->orWhere("email", "LIKE", "%{$request->keyword}%")
-                ->get();
-        }
-        return $data;
-
-    }
+//    public function search(Request $request)
+//    {
+//        dd($request);
+//            // $data = User::FullTextSearch('user', $request->keyword)->get();
+//            //$data = User::search($request->keyword)->get();
+//            $user = User::select("user", "username", "email", "address")
+//                ->Where("user", "LIKE", "%{$request->user}%")
+//                ->where("username", "LIKE", "%{$request->username}%")
+//                ->Where("email", "LIKE", "%{$request->email}%")
+//                ->Where("address", "LIKE", "%{$request->address}%")
+//                ->get();
+//        return $user;
+//
+//    }
     public function destroy(Request $request)
     {
         DB::transaction(function () use ($request)

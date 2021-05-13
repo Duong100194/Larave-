@@ -74,10 +74,6 @@
                     email: email,
                     address: address,
                 }
-                var userErr = document.getElementById("userErr");
-                var usernameErr = document.getElementById("usernameErr");
-                var emailErr = document.getElementById("emailErr");
-                var addressErr = document.getElementById("addressErr");
                 axios.post('/Laravel_Pr/BaitapLaravel_User/public/edit', submitData)
                     .then(function (response) {
                         alert(response.data.success);
@@ -96,7 +92,6 @@
                                 $('#error_' + key).css('display', 'block');
                             }
                         }
-
                     });
             }
             function clearError(self) {
@@ -106,7 +101,6 @@
             }
 
         </script>
-
     </div>
 </div>
 @endsection

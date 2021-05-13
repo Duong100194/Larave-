@@ -73,7 +73,6 @@
                         email: email,
                         address: address,
                     }
-                    var errorMessage = document.getElementById("errorMessage");
                     axios.post('/Laravel_Pr/BaitapLaravel_User/public/store', submitData)
                         .then(function (response) {
                           alert(response.data.success);

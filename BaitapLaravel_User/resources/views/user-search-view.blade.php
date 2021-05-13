@@ -3,30 +3,27 @@
 @section('content')
 <div class="container">
     <h1 class="jumbotron text-center">User List</h1>
-    <form action="{{route('show_list')}}" method='GET'>
-        <div class="row">
-            <div class="col-sm-3">
-                <label>User:</label>
-                <input type="search" id="searchUser" name="searchUser" class="form-control m-input" placeholder="Enter User"/>
-            </div>
-            <div class="col-sm-3">
-                <label>UserName:</label>
-                <input type="text" id="searchUsername" name="searchUsername" class="form-control m-input" placeholder="Enter UserName"/>
-            </div>
-            <div class="col-sm-3">
-                <label>Email:</label>
-                <input type="text" id="searchEmail" name="searchEmail" class="form-control m-input" placeholder="Enter Email"/>
-            </div>
-            <div class="col-sm-3">
-                <label>Address:</label>
-                <input type="text" id="searchAddress" name="searchAddress" class="form-control m-input" placeholder="Enter Address"/>
-            </div>
+    <div class="row">
+        <div class="col-sm-3">
+            <label>User:</label>
+            <input id="header-search" type="text" name="searchUser" class="form-control m-input" placeholder="Enter User"/>
         </div>
-        <div class="col-sm-12 text-center">
-            <button  class="btn btn-primary">Search</button>
+        <div class="col-sm-3">
+            <label>UserName:</label>
+            <input id="header-search" type="text" name="searchUsername" class="form-control m-input" placeholder="Enter UserName"/>
         </div>
-    </form>
-
+        <div class="col-sm-3">
+            <label>Email:</label>
+            <input id="header-search" type="text" name="searchEmail" class="form-control m-input" placeholder="Enter Email"/>
+        </div>
+        <div class="col-sm-3">
+            <label>Address:</label>
+            <input id="header-search" type="text" name="searchAddress" class="form-control m-input" placeholder="Enter Address"/>
+        </div>
+    </div>
+    <div class="col-sm-12 text-center">
+        <a href="{{ route('search') }}" class="btn btn-primary">Search</a>
+    </div>
     <div>
         <a href="{{ route('create_user') }}" class="btn btn-danger">Add User</a>
     </div>
@@ -77,30 +74,27 @@
                                  return false;
 
                          }
-                         function headersearch() {
-                             let user = document.getElementById('searchUser').value;
-                             let username = document.getElementById('searchusername').value;
-                             let email = document.getElementById('searchEmail').value;
-                             let address = document.getElementById('searchAddress').value;
-                             var Search = {
-                                 user: user,
-                                 username:username,
-                                 email: email,
-                                 address: address,
-                             }
-                             axios.get('/Laravel_Pr/BaitapLaravel_User/public/search', Search)
-                                 .then(function (response) {
-                                     // alert(response.data.success);
-                                      console.log(response);
+                         $('#header-search').on('keyup', function() {
+                             var search = this.value;
+                            // console.log(1);
+                             if ($(this).find('.m-input').val() == '') {
+                                 $('#search-suggest div').hide();
+                             } else {
+                                 console.log(search)
+                                 axios.post('/Laravel_Pr/BaitapLaravel_User/public/search', {
+                                     keyword: search
                                  })
-                                 .catch(function (error) {
-                                     console.log(error.response.data.errors);
-                                     {
-                                         console.log(error.response);
-                                     }
-                                 });
-                         }
-
+                                     .then(function (response) {
+                                         console.log(response);
+                                        // window.location.reload();
+                                        // $('#search-suggest').html('');
+                                        // $('#search-suggest').append(response)
+                                     })
+                                     .catch(function (error) {
+                                         console.log(error);
+                                     });
+                             };
+                         });
                      </script>
 
             </tbody>
