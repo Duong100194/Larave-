@@ -96,6 +96,8 @@
                 clearError: function(self) {
                   console.log($(self).attr('name'));//attribute
 
+
+
                 }
             }
         </script>
