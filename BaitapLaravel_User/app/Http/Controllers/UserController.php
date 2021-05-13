@@ -17,19 +17,12 @@ class UserController extends Controller
 {
     public function index()
     {
-//        $request = request()->all();
-//        dd($request);
-        //$users= DB::table('users')->orderBy('id', 'desc')->paginate(15);
-
-       // $users = User::orderBy('id', 'desc')->paginate(15);
-
-//        $search_user=$_GET['searchUser'];
+        $request_post = request()->all();
+      // dd($request_post);
         $search_user = request('searchUser');
         $search_username=request('searchUsername');
         $search_email=request('searchEmail');
         $search_address=request('searchAddress');
-
-
         $query = User::latest();
         if(! empty($search_user)) {
             $query->Where("user", "LIKE", "%{$search_user}%");
@@ -44,12 +37,7 @@ class UserController extends Controller
             $query->Where("address", "LIKE", "%{$search_address}%");
         }
         $users = $query->orderBy('id', 'desc')->paginate(15);
-
-//            ->where("username", "LIKE", "%{$search_username}%")
-//            ->Where("email", "LIKE", "%{$search_email}%")
-//            ->Where("address", "LIKE", "%{$search_address}%")
-//            ->get();
-        return view('user-list-view', compact('users'));
+        return view('user-list-view', ['users' =>$users,'request_post' =>$request_post]);
     }
 
     public function create()
