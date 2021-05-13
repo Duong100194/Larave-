@@ -2,31 +2,42 @@
 
 @section('content')
 <div class="container">
-        <table border="1" class="table table-striped" id="User_list">
-             <h1>User List</h1>
-            <div>
-                <a href="{{ route('create_user') }}" class="btn btn-warning">Add User</a>
-            </div>
-             <thead>
-            <div class="row" >
-                <div class="col-sm-8"> <input id="header-search" type="text" name="search" class="form-control m-input" placeholder="Enter Your Search"/></div>
-                <div class="col-sm-4"> <button type="button" class="btn btn-default" id="btnSearch">Search</button></div>
-                <p class="pull-left">Tim thay {{count($users)}} User</p>
-            </div>
-            {{ csrf_field() }}
-            <div>
-            <div id="search-suggest" class="s-suggest"></div>
-            </div>
-            <thead>
-                <tr>
-                     <th class="text-center" >id</th>
-                     <th class="text-center">User</th>
-                     <th class="text-center">User Name</th>
-                     <th class="text-center">Email</th>
-                     <th class="text-center">Address</th>
-                     <th class="text-center">Actions</th>
-                 </tr>
-              </thead>
+    <h1 class="jumbotron text-center">User List</h1>
+    <div class="row">
+        <div class="col-sm-3">
+            <label>User:</label>
+            <input id="header-search" type="text" name="searchUser" class="form-control m-input" placeholder="Enter User"/>
+        </div>
+        <div class="col-sm-3">
+            <label>UserName:</label>
+            <input id="header-search" type="text" name="searchUsername" class="form-control m-input" placeholder="Enter UserName"/>
+        </div>
+        <div class="col-sm-3">
+            <label>Email:</label>
+            <input id="header-search" type="text" name="searchEmail" class="form-control m-input" placeholder="Enter Email"/>
+        </div>
+        <div class="col-sm-3">
+            <label>Address:</label>
+            <input id="header-search" type="text" name="searchAddress" class="form-control m-input" placeholder="Enter Address"/>
+        </div>
+    </div>
+    <div class="col-sm-12 text-center">
+        <a href="{{ route('search') }}" class="btn btn-primary">Search</a>
+    </div>
+    <div>
+        <a href="{{ route('create_user') }}" class="btn btn-danger">Add User</a>
+    </div>
+    <table border="1" class="jumbotron table table-striped" id="User_list">
+        <thead>
+            <tr>
+                 <th class="text-center" >id</th>
+                 <th class="text-center">User</th>
+                 <th class="text-center">User Name</th>
+                 <th class="text-center">Email</th>
+                 <th class="text-center">Address</th>
+                 <th class="text-center">Actions</th>
+             </tr>
+        </thead>
             <tbody>
                  @foreach($users as $item)
                     <tr>

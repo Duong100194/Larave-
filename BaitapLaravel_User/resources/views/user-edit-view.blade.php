@@ -7,21 +7,6 @@
             {{ csrf_field() }}
             <div class="form-group row">
             <h1>Edit User</h1>
-{{--            @error('user')--}}
-{{--            <div class="alert alert-danger" role="alert">--}}
-{{--                <strong>{{$message}}</strong>--}}
-{{--            </div>--}}
-{{--            @enderror--}}
-{{--            @error('username')--}}
-{{--            <div class="alert alert-danger" role="alert">--}}
-{{--                <strong>{{$message}}</strong>--}}
-{{--            </div>--}}
-{{--            @enderror--}}
-{{--            @error('email')--}}
-{{--            <div class="alert alert-danger" role="alert">--}}
-{{--                <strong>{{$message}}</strong>--}}
-{{--            </div>--}}
-{{--            @enderror--}}
             </div>
             <div class="form-group row">
                 <div class="c-section-box__head">
@@ -30,9 +15,9 @@
                     </div>
                 </div>
                 <div class="c-section-box__body">
-                    <input type="text" class="form-control" name='user' id="user" value="{{$user->user}}">
+                    <input type="text" class="form-control" name='user' id="user" value="{{$user->user}}" onfocus="clearError(this)">
                 </div>
-                <p class="error" id="userErr" > </p>
+                <p class="error" style="display:none" id="error_user"> </p>
             </div>
 
             <div class="form-group row">
@@ -42,9 +27,9 @@
                     </div>
                 </div>
                 <div class="c-section-box__body">
-                    <input type="text" class="form-control" name='username' id="username" value="{{$user->username}}">
+                    <input type="text" class="form-control" name='username' id="username" value="{{$user->username}}" onfocus="clearError(this)">
                 </div>
-                <p class="error" id="usernameErr" > </p>
+                <p class="error" style="display:none" id="error_username"> </p>
             </div>
             <div class="form-group row">
                 <div class="c-section-box__head">
@@ -53,9 +38,9 @@
                     </div>
                 </div>
                 <div class="c-section-box__body">
-                    <input type="text" class="form-control"  placeholder="@Email.com" name='email' id="email" value="{{$user->email}}">
+                    <input type="text" class="form-control"  placeholder="@Email.com" name='email' id="email" value="{{$user->email}}" onfocus="clearError(this)">
                 </div>
-                <p class="error" id="emailErr" > </p>
+                <p class="error" style="display:none" id="error_email"> </p>
             </div>
             <div class="form-group row">
                 <div class="c-section-box__head">
@@ -64,9 +49,9 @@
                     </div>
                 </div>
                 <div class="c-section-box__body">
-                    <input type="text" class="form-control" name='address' id="address" value="{{$user->address}}">
+                    <input type="text" class="form-control" name='address' id="address" value="{{$user->address}}" onfocus="clearError(this)">
                 </div>
-                <p class="error" id="addressErr" > </p>
+                <p class="error" style="display:none" id="error_address"> </p>
             </div>
             <div class="form-group row">
             <button type="button" class="btn btn-info btn-lg" onclick="UpdateUser({{$user->id}})">Update</button>
@@ -100,20 +85,26 @@
                         //  console.log(response);
                     })
                     .catch(function (error) {
-
-                        console.log(error.response)
-                        // user  = error.response.data.errors.user != null ? error.response.data.errors.user+ '\n' : '';
-                        // username  = error.response.data.errors.username != null ? error.response.data.errors.username+ '\n' : '';
-                        // email  = error.response.data.errors.email != null ? error.response.data.errors.email+ '\n' : '';
-                        // address  = error.response.data.errors.address != null ? error.response.data.errors.address+ '\n' : '';
-                        // userErr.innerText=user;
-                        // usernameErr.innerText=username;
-                        // emailErr.innerText=email;
-                        // addressErr.innerText=address;
+                        console.log(error.response.data.errors);
+                        for (let key in error.response.data.errors) {
+                            //Sau khi e co bien key, e se search xem key do co ben trong errors hay ko.
+                            console.log(error.response.data.errors.hasOwnProperty(key));
+                            if (error.response.data.errors.hasOwnProperty(key)) {
+                                //Neu key do co ben trong errors. e se dua no vao doan text;
+                                //errorMessage.innertText += error.response.data.errors[key][0];// cach nay la dua ra toan bo text trong cung 1 cho
+                                $('#error_' + key).html(error.response.data.errors[key][0]);
+                                $('#error_' + key).css('display', 'block');
+                            }
+                        }
 
                     });
-
             }
+            function clearError(self) {
+                console.log($(self).attr('name'));//attribute
+                let txt_Click = $(self).attr('name');
+                $('#error_'+txt_Click).css('display', 'none');
+            }
+
         </script>
 
     </div>
