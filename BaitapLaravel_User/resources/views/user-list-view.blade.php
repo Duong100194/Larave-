@@ -27,7 +27,8 @@
         </div>
     </form>
     <div class="row">
-        <div class="col-sm-12"><p class="pull-left">{{$users->total()}}件</p></div>
+        <div class="col-sm-8"><p class="pull-left">{{$users->total()}}件</p></div>
+        <div class="col-sm-8"><p class="pull-left">{{$users->count()}}件</p></div>
     </div>
     <div>
         <a href="{{ route('create_user') }}" class="btn btn-danger">Add User</a>

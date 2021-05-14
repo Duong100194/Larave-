@@ -22,30 +22,52 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $request_post = request()->all();
         $query = User::query();
+        $request_post = [];
         // Check isset searchUser
         if(isset($request['searchUser']))
         {
             //select user
             $query->Where("user", "LIKE", "%{$request['searchUser']}%");
+            $request_post['searchUser'] = $request['searchUser'];
         }
         // Check isset searchUsername
         if(isset($request['searchUsername'])) {
             //select username
             $query->Where("username", "LIKE", "%{$request['searchUsername']}%");
+            $request_post['searchUsername'] = $request['searchUsername'];
         }
         // Check isset searchEmail
         if(isset($request['searchEmail'])) {
             $query->Where("email", "LIKE", "%{$request['searchEmail']}%");
+            $request_post['searchEmail'] = $request['searchEmail'];
         }
         // Check isset searchAddress
         if($request['searchAddress']){
             //select address
-            $query->Where("address", "LIKE", "%{$request['searchAddress']}%");
+            $query->where("address", "LIKE", "%{$request['searchAddress']}%");
+            $request_post['searchAddress'] = $request['searchAddress'];
         }
-        $users = $query->orderBy('id','desc')->Paginate(15);
-        $users->appends($request->all());
+        $users = $query->orderBy('id','desc')->paginate(15);
+//        foreach($request_post as $key => $val) {
+//            echo $val.'<br>';
+//        }
+
+        //normal array
+        //['test', 'test2']
+        //hash array - key and value paired array
+//        $append = [
+//            'key1' => 'value1'
+//        ];
+//
+//        $request_post = [
+//            'searchUser' => $request['searchUser'],
+//            'searchUsername' => $request['searchUsername'],
+//
+//        ];
+//array_values()
+        //array_keys()
+        $users->appends($request_post);
         return view('user-list-view', ['users' => $users,'request_post' => $request_post]);
     }
     /** view insert page
@@ -98,7 +120,6 @@ class UserController extends Controller
             $user->email = $request->email;
             $user->address = $request->address;
             $user->update();
-
         });
         return response()->json(['success' => 'User Updated']);
     }
