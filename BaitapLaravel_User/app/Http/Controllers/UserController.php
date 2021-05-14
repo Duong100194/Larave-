@@ -20,7 +20,6 @@ class UserController extends Controller
      * @param Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-
     public function index(Request $request)
     {
         $request_post = request()->all();
@@ -41,23 +40,20 @@ class UserController extends Controller
             $query->Where("email", "LIKE", "%{$request['searchEmail']}%");
         }
         // Check isset searchAddress
-        if(isset($request['searchAddress'])){
+        if($request['searchAddress']){
             //select address
             $query->Where("address", "LIKE", "%{$request['searchAddress']}%");
         }
         $users = $query->orderBy('id','desc')->paginate(15);
-        return view('user-list-view', ['users' =>$users,'request_post' =>$request_post]);
+        return view('user-list-view', ['users' => $users,'request_post' => $request_post]);
     }
-
     /** view insert page
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
         return view('user-insert-view');
-
     }
-
     /**
      * store data user
      * @param UserRequest $request
@@ -65,7 +61,6 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
-
         DB::transaction(function () use ($request)
         {
             $user = new User;
@@ -74,57 +69,38 @@ class UserController extends Controller
             $user->email = $request->email;
             $user->address = $request->address;
             $user->save();
-
         });
         return response()->json(['success' => 'User Created']);
     }
-
     /**
      * View edit page with id
      * @param $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-
     public function edit($id)
     {
         return view('user-edit-view', ['user' => User::findOrFail($id)]);
     }
-
     /**
      * update data user
      * @param UserRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-
     public function update(UserRequest $request)
     {
-            DB::transaction(function () use ($request)
-            {
-                    $user = User::find($request->id);
-                    $user->id = $request->id;
-                    $user->user = $request->user;
-                    $user->username = $request->username;
-                    $user->email = $request->email;
-                    $user->address = $request->address;
-                    $user->update();
+        DB::transaction(function () use ($request)
+        {
+            $user = User::find($request->id);
+            $user->id = $request->id;
+            $user->user = $request->user;
+            $user->username = $request->username;
+            $user->email = $request->email;
+            $user->address = $request->address;
+            $user->update();
 
-            });
+        });
         return response()->json(['success' => 'User Updated']);
     }
-//    public function search(Request $request)
-//    {
-//        dd($request);
-//            // $data = User::FullTextSearch('user', $request->keyword)->get();
-//            //$data = User::search($request->keyword)->get();
-//            $user = User::select("user", "username", "email", "address")
-//                ->Where("user", "LIKE", "%{$request->user}%")
-//                ->where("username", "LIKE", "%{$request->username}%")
-//                ->Where("email", "LIKE", "%{$request->email}%")
-//                ->Where("address", "LIKE", "%{$request->address}%")
-//                ->get();
-//        return $user;
-//
-//    }
     /**
      * delete users
      * @param Request $request
@@ -136,12 +112,9 @@ class UserController extends Controller
         {
             $user = User::find($request->id);
             $user->delete();
-            #return redirect()->route('show_list');
-
         });
         return response()->json(['success' => 'Deleted']);
     }
-
 }
 
 

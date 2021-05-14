@@ -36,7 +36,7 @@
                             </div>
                         </div>
                         <div class="c-section-box__body">
-                            <input type="text" class="form-control"  placeholder="@Email.com" name="email" id="email" onfocus="userInsert.clearError(this)">
+                            <input type="text" class="form-control" placeholder="@Email.com" name="email" id="email" onfocus="userInsert.clearError(this)">
                         </div>
                         <p class="error" style="display:none" id="error_email"> </p>
                     </div>
@@ -62,6 +62,9 @@
         <script type="text/javascript">
             "use strict";
             var userInsert = {
+                /**
+                 * Insert user
+                 */
                 insertUser: function() {
                     let user = document.getElementById('user').value;
                     let username = document.getElementById('username').value;
@@ -93,6 +96,10 @@
                             }
                          });
                 },
+                /**
+                 * Clear reset error is click input
+                 * @param self
+                 */
                 clearError: function(self) {
                     console.log($(self).attr('name'));//attribute
                     let txt_Click = $(self).attr('name');
