@@ -44,7 +44,8 @@ class UserController extends Controller
             //select address
             $query->Where("address", "LIKE", "%{$request['searchAddress']}%");
         }
-        $users = $query->orderBy('id','desc')->paginate(15);
+        $users = $query->orderBy('id','desc')->Paginate(15);
+        $users->appends($request->all());
         return view('user-list-view', ['users' => $users,'request_post' => $request_post]);
     }
     /** view insert page

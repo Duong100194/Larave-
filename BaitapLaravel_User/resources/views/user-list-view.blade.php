@@ -26,11 +26,11 @@
             <button  class="btn btn-primary">Search</button>
         </div>
     </form>
+    <div class="row">
+        <div class="col-sm-12"><p class="pull-left">{{$users->total()}}件</p></div>
+    </div>
     <div>
         <a href="{{ route('create_user') }}" class="btn btn-danger">Add User</a>
-    </div>
-    <div class="row">
-        <div class="col-sm-12"><p class="pull-left"> User:{{$users->total()}}件</p></div>
     </div>
     <table border="1" class="jumbotron table table-striped" id="User_list">
         <thead>
@@ -59,6 +59,7 @@
                  @endforeach
                      <script>
                          "use strict";
+
                          /**
                           * confirm before delete
                           * @param id
@@ -81,6 +82,7 @@
                              }
                              else
                                  return false;
+
                          }
                      </script>
             </tbody>
