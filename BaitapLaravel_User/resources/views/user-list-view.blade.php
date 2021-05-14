@@ -7,19 +7,19 @@
         <div class="row">
             <div class="col-sm-3">
                 <label>User:</label>
-                <input type="search" id="searchUser" name="searchUser" class="form-control m-input" placeholder="Enter User"/>
+                <input type="search" id="searchUser" name="searchUser" class="form-control m-input" value="{{isset($request_post['searchUser'])?$request_post['searchUser']:''}}" placeholder="EnterUser"/>
             </div>
             <div class="col-sm-3">
                 <label>UserName:</label>
-                <input type="text" id="searchUsername" name="searchUsername" class="form-control m-input" placeholder="Enter UserName"/>
+                <input type="text" id="searchUsername" name="searchUsername" class="form-control m-input" placeholder="Enter UserName" value="{{isset($request_post['searchUsername'])?$request_post['searchUsername']:''}}"/>
             </div>
             <div class="col-sm-3">
                 <label>Email:</label>
-                <input type="text" id="searchEmail" name="searchEmail" class="form-control m-input" placeholder="Enter Email"/>
+                <input type="text" id="searchEmail" name="searchEmail" class="form-control m-input" placeholder="Enter Email" value="{{isset($request_post['searchEmail'])?$request_post['searchEmail']:''}}"/>
             </div>
             <div class="col-sm-3">
                 <label>Address:</label>
-                <input type="text" id="searchAddress" name="searchAddress" class="form-control m-input" placeholder="Enter Address"/>
+                <input type="text" id="searchAddress" name="searchAddress" class="form-control m-input" placeholder="Enter Address" value="{{isset($request_post['searchAddress'])?$request_post['searchAddress']:''}}"/>
             </div>
         </div>
         <div class="col-sm-12 text-center">
