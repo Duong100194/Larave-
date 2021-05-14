@@ -61,6 +61,12 @@
 
         <script type="text/javascript">
             "use strict";
+
+            /**
+             * update users with id
+             * @param id
+             * @constructor
+             */
              function UpdateUser(id)
             {
                 let user = document.getElementById('user').value;
@@ -74,6 +80,7 @@
                     email: email,
                     address: address,
                 }
+                //Send a POST request to /edit with an object of submitdata
                 axios.post('/Laravel_Pr/BaitapLaravel_User/public/edit', submitData)
                     .then(function (response) {
                         alert(response.data.success);
@@ -85,6 +92,7 @@
                         for (let key in error.response.data.errors) {
                             //Sau khi e co bien key, e se search xem key do co ben trong errors hay ko.
                             console.log(error.response.data.errors.hasOwnProperty(key));
+                            //Confirm key in error is exits
                             if (error.response.data.errors.hasOwnProperty(key)) {
                                 //Neu key do co ben trong errors. e se dua no vao doan text;
                                 //errorMessage.innertText += error.response.data.errors[key][0];// cach nay la dua ra toan bo text trong cung 1 cho
@@ -94,6 +102,11 @@
                         }
                     });
             }
+
+            /**
+             * Clear reset error is click input
+             * @param self
+             */
             function clearError(self) {
                 console.log($(self).attr('name'));//attribute
                 let txt_Click = $(self).attr('name');

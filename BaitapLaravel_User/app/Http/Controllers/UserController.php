@@ -15,37 +15,54 @@ use App\Http\Requests\UserRequest;
 
 class UserController extends Controller
 {
-    public function index()
+    /**
+     * User list
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+
+    public function index(Request $request)
     {
         $request_post = request()->all();
-      // dd($request_post);
-        $search_user = request('searchUser');
-        $search_username=request('searchUsername');
-        $search_email=request('searchEmail');
-        $search_address=request('searchAddress');
-        $query = User::latest();
-        if(! empty($search_user)) {
-            $query->Where("user", "LIKE", "%{$search_user}%");
+        $query = User::query();
+        // Check isset searchUser
+        if(isset($request['searchUser']))
+        {
+            //select user
+            $query->Where("user", "LIKE", "%{$request['searchUser']}%");
         }
-        if(! empty($search_username)) {
-            $query->Where("username", "LIKE", "%{$search_username}%");
+        // Check isset searchUsername
+        if(isset($request['searchUsername'])) {
+            //select username
+            $query->Where("username", "LIKE", "%{$request['searchUsername']}%");
         }
-        if(! empty($search_email)) {
-            $query->Where("email", "LIKE", "%{$search_email}%");
+        // Check isset searchEmail
+        if(isset($request['searchEmail'])) {
+            $query->Where("email", "LIKE", "%{$request['searchEmail']}%");
         }
-        if(! empty($search_address)) {
-            $query->Where("address", "LIKE", "%{$search_address}%");
+        // Check isset searchAddress
+        if(isset($request['searchAddress'])){
+            //select address
+            $query->Where("address", "LIKE", "%{$request['searchAddress']}%");
         }
-        $users = $query->orderBy('id', 'desc')->paginate(15);
+        $users = $query->orderBy('id','desc')->paginate(15);
         return view('user-list-view', ['users' =>$users,'request_post' =>$request_post]);
     }
 
+    /** view insert page
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function create()
     {
         return view('user-insert-view');
 
     }
 
+    /**
+     * store data user
+     * @param UserRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function store(UserRequest $request)
     {
 
@@ -62,10 +79,22 @@ class UserController extends Controller
         return response()->json(['success' => 'User Created']);
     }
 
+    /**
+     * View edit page with id
+     * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+
     public function edit($id)
     {
         return view('user-edit-view', ['user' => User::findOrFail($id)]);
     }
+
+    /**
+     * update data user
+     * @param UserRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
 
     public function update(UserRequest $request)
     {
@@ -96,6 +125,11 @@ class UserController extends Controller
 //        return $user;
 //
 //    }
+    /**
+     * delete users
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function destroy(Request $request)
     {
         DB::transaction(function () use ($request)

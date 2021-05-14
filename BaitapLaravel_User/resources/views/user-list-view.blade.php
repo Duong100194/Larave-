@@ -54,10 +54,15 @@
                           <a href="{{ route('edit_user',$item->id) }}" class="btn btn-success float-left">Edit</a>
                         </td>
                     </tr>
-
                  @endforeach
                      <script>
                          "use strict";
+
+                         /**
+                          * confirm before delete
+                          * @param id
+                          * @returns {boolean}
+                          */
                          function confirmDelete(id)
                          {
                              if (confirm("Are you sure you want to delete this?"))
@@ -78,9 +83,9 @@
 
                          }
                      </script>
-
             </tbody>
-            {{$users->links()}}
+        {{$users->links()}}
+
          </table>
 </div>
 @endsection

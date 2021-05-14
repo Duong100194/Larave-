@@ -32,6 +32,10 @@ class UserRequest extends FormRequest
             'address' => 'max:250',
         ];
     }
+
+    /** change message content
+     * @return string[]
+     */
     public function messages(){
         return [
             'user.required'       => 'Userを入力してください。',
