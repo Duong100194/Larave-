@@ -77,30 +77,6 @@
                                  return false;
 
                          }
-                         function headersearch() {
-                             let user = document.getElementById('searchUser').value;
-                             let username = document.getElementById('searchusername').value;
-                             let email = document.getElementById('searchEmail').value;
-                             let address = document.getElementById('searchAddress').value;
-                             var Search = {
-                                 user: user,
-                                 username:username,
-                                 email: email,
-                                 address: address,
-                             }
-                             axios.get('/Laravel_Pr/BaitapLaravel_User/public/search', Search)
-                                 .then(function (response) {
-                                     // alert(response.data.success);
-                                      console.log(response);
-                                 })
-                                 .catch(function (error) {
-                                     console.log(error.response.data.errors);
-                                     {
-                                         console.log(error.response);
-                                     }
-                                 });
-                         }
-
                      </script>
 
             </tbody>
