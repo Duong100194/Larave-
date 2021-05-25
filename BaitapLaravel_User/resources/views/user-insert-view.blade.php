@@ -105,6 +105,7 @@
                     let txt_Click = $(self).attr('name');
                     $('#error_'+txt_Click).css('display', 'none');
                 }
+
             }
         </script>
     </div>
