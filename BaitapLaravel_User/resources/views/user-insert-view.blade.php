@@ -27,7 +27,7 @@
                         <div class="c-section-box__body">
                             <input type="text" class="form-control" name="username" id="username" onfocus="userInsert.clearError(this)">
                         </div>
-                        <p class="error" style="display:none" id="error_username"> </p>
+                        <p class="error" style="display:none" id="error_username"></p>
                     </div>
                     <div class="form-group row">
                         <div class="c-section-box__head">
@@ -50,8 +50,8 @@
                         <div class="c-section-box__body">
                             <input type="text"  class="form-control" name="address" id="address" onfocus="userInsert.clearError(this)">
                         </div>
-                        <p class="error" style="display:none" id="error_address"> </p>
                     </div>
+                    <p class="error" style="display:none" id="error_address"> </p>
                     <div class="form-group row">
                         <button type="button" class="btn btn-info btn-lg" onclick="userInsert.insertUser()">Insert</button>
                         <a href="{{ route('show_list') }}" class="btn btn-default btn-lg">Cancel</a>

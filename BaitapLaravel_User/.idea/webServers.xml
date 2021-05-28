@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="b00ddee0-be32-4a5a-94b3-4188f275d8b4" name="voice-picker-stg">
+        <fileTransfer rootFolder="/home/web.hondanet.co.jp/vsites/laravel/voice-picker" accessType="SFTP" host="10.90.20.31" port="22" sshConfigId="ae170d06-753e-4939-a6fd-6b372237120d" sshConfig="thuy_duong@10.90.20.31:22 key" keyPair="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
