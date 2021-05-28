@@ -58,7 +58,7 @@
                           <a class="btn btn-danger float-left" onclick="confirmDelete({{$item->id}})">Del</a>
                           <!-- <a href="{{ route('edit_user',$item->id) }}" class="btn btn-success float-left">Edit</a> -->
                           <button data-toggle="modal" data-target="#myModal"
-                          onclick='openModal()' class="btn btn-success float-left">Edit</button>
+                          class="btn btn-success float-left">Edit</button>
                           <!-- <button type="button" id="edit-btn" class="btn btn-success float-left" data-toggle="modal" data-target="#myModal" value="{{$item->id}}">Edit</button> -->
                         </td>
                     </tr>
