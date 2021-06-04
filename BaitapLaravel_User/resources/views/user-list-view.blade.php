@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <h1 class="jumbotron text-center">User List</h1>
-    <form action="{{route('show_list')}}" method='GET'>
+    <form action="{{route('show_list')}}" method='get'>
     @csrf
         <div class="row">
             <div class="col-sm-3">
@@ -57,8 +57,7 @@
                         <td class="text-center" colspan="">
                           <a class="btn btn-danger float-left" onclick="confirmDelete({{$item->id}})">Del</a>
                           <!-- <a href="{{ route('edit_user',$item->id) }}" class="btn btn-success float-left">Edit</a> -->
-                          <button data-toggle="modal" data-target="#myModal"
-                          class="btn btn-success float-left">Edit</button>
+                          <button data-toggle="modal" data-target="#myModal" class="btn btn-success editbtn" data_value="{{$item->id}}" >Edit</button>
                           <!-- <button type="button" id="edit-btn" class="btn btn-success float-left" data-toggle="modal" data-target="#myModal" value="{{$item->id}}">Edit</button> -->
                         </td>
                     </tr>
@@ -95,21 +94,52 @@
             else
                 return false;
         }
-        function insertUser()
+        function insert_update_User()
         {
+            $('editbtn').on('click',function)
+            {
+                $tr = $(this).closest('tr');
+                var data = $tr.children("td".map(function))
+                {
+                    return $(this).text();
+                }).get();
+                console.log(data);
+                $id('#id').val(data[0]);
+                $id('#user').val(data[1]);
+                $id('#username').val(data[2]);
+                $id('#email').val(data[3]);
+                $id('#address').val(data[4]);
+
+            });
             let id = $('#user_id').val();
             let user = $("#myModal").find('input[name="user"]').val();
             let username = $("#myModal").find('input[name="username"]').val();
             let email = $("#myModal").find('input[name="email"]').val();
             let address = $("#myModal").find('input[name="address"]').val();
-            var submitData = {
-                user: user,
-                username:username,
-                email: email,
-                address: address,
+            var submitData;
+            if(id=="")
+            { 
+                submitData =
+                  {
+                    user: user,
+                    username:username,
+                    email: email,
+                    address: address,
+                  }       
             }
-           // console.log(submitData);
-            axios.post('/store', submitData)
+            else
+            {
+                submitData = 
+                {
+                    id: id,
+                    user: user,
+                    username:username,
+                    email: email,
+                    address: address,
+                }
+            }
+            console.log(submitData);
+            axios.post('/insertandupdate', submitData)
                 .then(function (response) {
                     alert(response.data.success);
                     window.location.href = "{{route('show_list')}}";
@@ -128,44 +158,44 @@
                     }
                     });
         }
-        function UpdateUser(id)
-             {
-                let user = $("#myModal").find('input[name="user"]').val();
-                let username = $("#myModal").find('input[name="username"]').val();
-                let email = $("#myModal").find('input[name="email"]').val();
-                let address = $("#myModal").find('input[name="address"]').val();
-                var submitData = {
-                user: user,
-                username:username,
-                email: email,
-                address: address,
-            }
-                //Send a POST request to /edit with an object of submitdata
-                axios.post('/edit', submitData)
-                    .then(function (response)
-                    {
-                        alert(response.data.success);
-                        window.location.href ="{{route('show_list')}}";
-                        //  console.log(response);
-                    })
-                    .catch(function (error)
-                    {
-                        console.log(error.response.data.errors);
-                        for (let key in error.response.data.errors)
-                        {
-                            //Sau khi e co bien key, e se search xem key do co ben trong errors hay ko.
-                            console.log(error.response.data.errors.hasOwnProperty(key));
-                            //Confirm key in error is exits
-                            if (error.response.data.errors.hasOwnProperty(key))
-                            {
-                                //Neu key do co ben trong errors. e se dua no vao doan text;
-                                //errorMessage.innertText += error.response.data.errors[key][0];// cach nay la dua ra toan bo text trong cung 1 cho
-                                $('#error_' + key).html(error.response.data.errors[key][0]);
-                                $('#error_' + key).css('display', 'block');
-                            }
-                        }
-                    });
-             }
+        // function UpdateUser(id)
+        //      {
+        //         let user = $("#myModal").find('input[name="user"]').val();
+        //         let username = $("#myModal").find('input[name="username"]').val();
+        //         let email = $("#myModal").find('input[name="email"]').val();
+        //         let address = $("#myModal").find('input[name="address"]').val();
+        //         var submitData = {
+        //         user: user,
+        //         username:username,
+        //         email: email,
+        //         address: address,
+        //     }
+        //         //Send a POST request to /edit with an object of submitdata
+        //         axios.post('/edit', submitData)
+        //             .then(function (response)
+        //             {
+        //                 alert(response.data.success);
+        //                 window.location.href ="{{route('show_list')}}";
+        //                 //  console.log(response);
+        //             })
+        //             .catch(function (error)
+        //             {
+        //                 console.log(error.response.data.errors);
+        //                 for (let key in error.response.data.errors)
+        //                 {
+        //                     //Sau khi e co bien key, e se search xem key do co ben trong errors hay ko.
+        //                     console.log(error.response.data.errors.hasOwnProperty(key));
+        //                     //Confirm key in error is exits
+        //                     if (error.response.data.errors.hasOwnProperty(key))
+        //                     {
+        //                         //Neu key do co ben trong errors. e se dua no vao doan text;
+        //                         //errorMessage.innertText += error.response.data.errors[key][0];// cach nay la dua ra toan bo text trong cung 1 cho
+        //                         $('#error_' + key).html(error.response.data.errors[key][0]);
+        //                         $('#error_' + key).css('display', 'block');
+        //                     }
+        //                 }
+        //             });
+        //      }
         function clearError(self) {
             console.log($(self).attr('name'));//attribute
             let txt_Click = $(self).attr('name');

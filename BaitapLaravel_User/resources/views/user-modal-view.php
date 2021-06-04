@@ -18,7 +18,7 @@
                         </div>
                         </div>
                         <div class="c-section-box__body">
-                            <input type="text" class="form-control" name="user" value="" onfocus="clearError(this)">
+                            <input type="text" class="form-control" name="user" id="user" onfocus="clearError(this)">
                         </div>
                 </div>
                 <p class="error" style="display:none" id="error_user"> </p>
@@ -29,7 +29,7 @@
                         </div>
                     </div>
                     <div class="c-section-box__body">
-                        <input type="text" class="form-control" name="username" value="" onfocus="clearError(this)">
+                        <input type="text" class="form-control" name="username" id="username" onfocus="clearError(this)">
                     </div>
                 </div>
                 <p class="error" style="display:none" id="error_username"> </p>
@@ -40,7 +40,7 @@
                         </div>
                     </div>
                     <div class="c-section-box__body">
-                        <input type="text" class="form-control" placeholder="@Email.com" name="email" value="" onfocus="clearError(this)">
+                        <input type="text" class="form-control" placeholder="@Email.com" name="email" id="email" onfocus="clearError(this)">
                     </div>
                 </div>
                 <p class="error" style="display:none" id="error_email"> </p>
@@ -51,7 +51,7 @@
                         </div>
                     </div>
                     <div class="c-section-box__body">
-                        <input type="text"  class="form-control" name="address" value="" onfocus="clearError(this)">
+                        <input type="text"  class="form-control" name="address" id="address" onfocus="clearError(this)">
                     </div>
                 </div>
             </form>

@@ -32,7 +32,6 @@ class UserRequest extends FormRequest
             'address' => 'max:250',
         ];
     }
-
     /** change message content
      * @return string[]
      */

@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/list', [\App\Http\Controllers\UserController::class, 'index'])->name('show_list');
 Route::get('/create_user', [\App\Http\Controllers\UserController::class, 'create'])->name('create_user');
 Route::post('/store', [\App\Http\Controllers\UserController::class, 'store'])->name('store_user');
+Route::post('/insertandupdate', [\App\Http\Controllers\UserController::class, 'insertandupdate'])->name('insertandupdate_user');
 Route::get('/edit/{id}', [\App\Http\Controllers\UserController::class, 'edit'])->name('edit_user');
 Route::post('/edit', [\App\Http\Controllers\UserController::class, 'update'])->name('update_user');
 Route::post('/delete', [\App\Http\Controllers\UserController::class, 'destroy'])->name('delete_user');
@@ -48,7 +49,7 @@ Route::get('/test-cau-1', function()
     array_push($array, "中村", "中島");
     dd($array);
 });//callback()
-Route::get('/test-cau-2', function()
+Route::get('test/test-cau-2', function()
 {
     $array = [
         'DUONG',

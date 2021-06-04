@@ -82,47 +82,80 @@ class UserController extends Controller
      * @param UserRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(UserRequest $request)
-    {
-        DB::transaction(function () use ($request)
+    // public function store(UserRequest $request)
+    // {
+    //     DB::transaction(function () use ($request)
+    //     {
+    //         $user = new User;
+    //         $user->user = $request->user;
+    //         $user->username = $request->username;
+    //         $user->email = $request->email;
+    //         $user->address = $request->address;
+    //         $user->save();
+    //     });
+    //     return response()->json(['success' => 'User Created']);
+    // }
+    public function insertandupdate(UserRequest $request)
+    {  
+        if(isset($request->id))
         {
-            $user = new User;
-            $user->user = $request->user;
-            $user->username = $request->username;
-            $user->email = $request->email;
-            $user->address = $request->address;
-            $user->save();
-        });
-        return response()->json(['success' => 'User Created']);
-    }
+            DB::transaction(function () use ($request)
+            {
+                $user = User::find($request->id);
+                $user->id = $request->id;
+                $user->user = $request->user;
+                $user->username = $request->username;
+                $user->email = $request->email;
+                $user->address = $request->address;
+                $user->update();
+            });
+            return response()->json(['success' => 'User Updated']);
+            
+        }
+        else
+        {
+            DB::transaction(function () use ($request)
+            {
+                $user = new User;
+                $user->user = $request->user;
+                $user->username = $request->username;
+                $user->email = $request->email;
+                $user->address = $request->address;
+                $user->save();
+            });
+            return response()->json(['success' => 'User Created']);
+           
+        }
+}
+    
     /**
      * View edit page with id
      * @param $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit($id)
-    {
-        return view('user-edit-view', ['user' => User::findOrFail($id)]);
-    }
+    // public function edit($id)
+    // {
+    //     return view('user-edit-view', ['user' => User::findOrFail($id)]);
+    // }
     /**
      * update data user
      * @param UserRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(UserRequest $request)
-    {
-        DB::transaction(function () use ($request)
-        {
-            $user = User::find($request->id);
-            $user->id = $request->id;
-            $user->user = $request->user;
-            $user->username = $request->username;
-            $user->email = $request->email;
-            $user->address = $request->address;
-            $user->update();
-        });
-        return response()->json(['success' => 'User Updated']);
-    }
+    // public function update(UserRequest $request)
+    // {
+    //     DB::transaction(function () use ($request)
+    //     {
+    //         $user = User::find($request->id);
+    //         $user->id = $request->id;
+    //         $user->user = $request->user;
+    //         $user->username = $request->username;
+    //         $user->email = $request->email;
+    //         $user->address = $request->address;
+    //         $user->update();
+    //     });
+    //     return response()->json(['success' => 'User Updated']);
+    // }
     /**
      * delete users
      * @param Request $request

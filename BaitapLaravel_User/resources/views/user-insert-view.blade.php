@@ -45,7 +45,6 @@
                             <div class="c-section-box__title">
                                 Address
                             </div>
-
                         </div>
                         <div class="c-section-box__body">
                             <input type="text"  class="form-control" name="address" id="address" onfocus="userInsert.clearError(this)">
